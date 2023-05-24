@@ -44,7 +44,7 @@ terraform apply
 ## Build components
 
 ```bash
-cd src/server
+cd src/hello-server
 podman build -t $(cat package.json | jq '.name + ":v" + .version' | tr -d "\"") .
 ```
 
