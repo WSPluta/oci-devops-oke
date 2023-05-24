@@ -1,4 +1,4 @@
-# OCI DevOps Service with Kubernetes Engine
+# OCI DevOps Service with Kubernetes
 
 ## Requirements
 
@@ -39,6 +39,13 @@ terraform init
 
 ```bash
 terraform apply
+```
+
+## Build components
+
+```bash
+cd src/server
+podman build -t $(cat package.json | jq '.name + ":v" + .version' | tr -d "\"") .
 ```
 
 ## Clean up
