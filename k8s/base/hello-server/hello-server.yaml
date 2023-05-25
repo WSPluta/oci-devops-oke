@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-server
+  name: hello-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-server
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hello-server
+    spec:
+      containers:
+      - image: hello-server:latest
+        name: hello-server
+        readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 1
+            periodSeconds: 5
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+        - name: NODE_ENV
+          value: "production"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/src/app/config
+      imagePullSecrets:
+        - name: ocir-secret
+      volumes:
+      - name: config-volume
+        configMap:
+          name: hello-server-env

@@ -41,11 +41,21 @@ terraform init
 terraform apply
 ```
 
-## Build components
+## Build Pipelines
 
 ```bash
 cd src/hello-server
 podman build -t $(cat package.json | jq '.name + ":v" + .version' | tr -d "\"") .
+```
+
+## Deployment Pipeline
+
+```bash
+export KUBECONFIG=$(pwd)/tf/generated/kubeconfig:$KUBECONFIG
+```
+
+```bash
+kubectl apply -k k8s/overlay/prod
 ```
 
 ## Clean up

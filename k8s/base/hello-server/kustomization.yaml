@@ -1,0 +1,7 @@
+resources:
+  - hello-server.yaml
+  - hello-server-service.yaml
+configMapGenerator:
+  - name: hello-server-env
+    files:
+      - .env=.env-hello-server
