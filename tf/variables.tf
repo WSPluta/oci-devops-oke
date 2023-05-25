@@ -11,10 +11,6 @@ variable "compartment_ocid" {
   type    = string
 }
 
-variable "ssh_public_key" {
-  type    = string
-}
-
 variable "subscription_email" {
   type    = string
 }
