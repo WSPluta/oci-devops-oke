@@ -18,6 +18,7 @@ override.tf.json
 terraform.rc
 
 generated/
+.env.json
 
 # Logs
 logs
