@@ -1,8 +1,8 @@
 # OCI DevOps Service with Kubernetes
 
-## First Step
+## First Step
 
-1. Fork this repository.
+1. **Fork** this repository.
 2. Create a Token:
     - On your profile icon in GitHub.
     - Go to **Settings**.
@@ -20,6 +20,7 @@
 
 - OCI CLI is [installed and configured](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).
 - Node.js
+- Kubectl
 
 ## Create TF vars file
 
@@ -42,7 +43,7 @@ terraform init
 terraform apply
 ```
 
-## Set Environment
+## Set Environment
 
 ```bash
 npx zx scripts/setenv.mjs
@@ -54,13 +55,13 @@ npx zx scripts/setenv.mjs
 npx zx scripts/build.mjs hello-server
 ```
 
-## Set Up Deployment
+## Set Up Deployment
 
 ```bash
 npx zx scripts/setup.mjs
 ```
 
-## Deployment Pipeline
+## Deployment Pipeline
 
 ```bash
 export KUBECONFIG=$(pwd)/tf/generated/kubeconfig:$KUBECONFIG
