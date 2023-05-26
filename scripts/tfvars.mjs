@@ -48,8 +48,6 @@ const githubToken = await setVariableFromEnvOrPrompt(
 
 const githubURLEscaped = githubURL.replaceAll("/", "\\/");
 
-console.log({ githubURL, githubURLEscaped });
-
 const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
 try {
