@@ -13,11 +13,23 @@ const {
   namespace,
 } = await readEnvJson();
 
-checkKubectlConfigured();
+configureKubectl();
 
 createRegistrySecret();
 
 printFollowingSteps();
+
+async function configureKubectl() {
+  const currentFolderPath = (await $`pwd`).stdout.trim();
+  const pathToKubeConfig = path.join(
+    currentFolderPath,
+    "tf",
+    "generated",
+    "kubeconfig"
+  );
+  $.prefix += `export KUBECONFIG=${pathToKubeConfig};`;
+  await checkKubectlConfigured();
+}
 
 async function checkKubectlConfigured() {
   console.log("Check kubectl is configured...");
