@@ -75,6 +75,10 @@ export KUBECONFIG=$(pwd)/tf/generated/kubeconfig:$KUBECONFIG
 kubectl apply -k k8s/overlay/prod
 ```
 
+```bash
+kubectl get svc -n ingress-nginx
+```
+
 ## Clean up
 
 ```bash

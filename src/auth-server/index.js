@@ -1,7 +1,6 @@
 import { createServer } from "http";
 import express from "express";
 import helmet from "helmet";
-import fetch from "node-fetch";
 import jsonPackage from "./package.json" assert { type: "json" };
 import { createTerminus } from "@godaddy/terminus";
 import pino from "pino";
@@ -19,11 +18,7 @@ logger.info(`Log Level: ${LOG_LEVEL}`);
 const NODE_ENV = process.env.NODE_ENV;
 logger.info(`Environment: ${NODE_ENV}`);
 
-const AUTH_SERVER_SERVICE_HOST = process.env.AUTH_SERVER_SERVICE_HOST;
-const AUTH_SERVER_SERVICE_PORT = process.env.AUTH_SERVER_SERVICE_PORT;
-logger.info(
-  `Auth Server: ${AUTH_SERVER_SERVICE_HOST}:${AUTH_SERVER_SERVICE_PORT}`
-);
+const SECRET = process.env.SECRET;
 
 logger.info(`Version ${jsonPackage.version}`);
 
@@ -34,25 +29,14 @@ app.use(helmet());
 
 app.use(express.json());
 
-app.get("/", async (req, res) => {
-  logger.info(`GET /`);
-  const authorization = req.headers.authorization;
-  const [_, token] = authorization.split(" ");
-  const responseAuth = await fetch(
-    `http://${AUTH_SERVER_SERVICE_HOST}:${AUTH_SERVER_SERVICE_PORT}/auth`,
-    {
-      method: "POST",
-      body: JSON.stringify({ token }),
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-  const jsonAuth = await responseAuth.json();
-  res.send({
+app.post("/auth", (req, res) => {
+  logger.info(`POST /auth`);
+  const secretFromRequest = req.body.token;
+  res.json({
     id: serverId,
     name: jsonPackage.name,
     version: jsonPackage.version,
-    message: "hello",
-    auth: jsonAuth,
+    valid: secretFromRequest === SECRET,
   });
 });
 

@@ -1,0 +1,3 @@
+resources:
+  - cloud.yaml
+  - ingress.yaml

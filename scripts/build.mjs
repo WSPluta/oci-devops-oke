@@ -27,8 +27,14 @@ if (action === "hello-server") {
   process.exit(0);
 }
 
+if (action === "auth-server") {
+  await releaseNpm("auth-server");
+  process.exit(0);
+}
+
 if (a || action === "all") {
   await releaseNpm("hello-server");
+  await releaseNpm("auth-server");
   process.exit(0);
 }
 
@@ -36,6 +42,7 @@ console.log("Usage:");
 console.log("\tnpx zx scripts/release.mjs all");
 console.log("\tnpx zx scripts/release.mjs -a");
 console.log("\tnpx zx scripts/release.mjs hello-server");
+console.log("\tnpx zx scripts/release.mjs auth-server");
 
 async function releaseNpm(service) {
   await cd(`src/${service}`);
@@ -47,5 +54,5 @@ async function releaseNpm(service) {
   await tagImage(local_image, remote_image);
   await pushImage(remote_image);
   console.log(`Released: ${chalk.yellow(remote_image)}`);
-  await cd("..");
+  await cd("../..");
 }

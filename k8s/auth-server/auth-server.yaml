@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-server
+  name: auth-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-server
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: auth-server
+    spec:
+      containers:
+      - image: fra.ocir.io/fruktknlrefu/oci_devops_oke/auth-server:1.0.0
+        name: auth-server
+        readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 1
+            periodSeconds: 5
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        env:
+        - name: NODE_ENV
+          value: "production"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/src/app/config
+      imagePullSecrets:
+        - name: ocir-secret
+      volumes:
+      - name: config-volume
+        configMap:
+          name: auth-server-env

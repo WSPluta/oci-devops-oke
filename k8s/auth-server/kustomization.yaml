@@ -1,0 +1,7 @@
+resources:
+  - auth-server.yaml
+  - auth-server-service.yaml
+configMapGenerator:
+  - name: auth-server-env
+    files:
+      - .env=.env-auth-server

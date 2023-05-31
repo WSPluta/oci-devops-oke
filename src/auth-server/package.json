@@ -1,20 +1,19 @@
 {
-  "name": "hello-server",
+  "name": "auth-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js | pino-pretty"
   },
-  "author": "Victor Martin Alvarez (victor.martin.alvarez@oracle.com)",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@godaddy/terminus": "^4.12.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^7.0.0",
-    "node-fetch": "^3.3.1",
     "pino": "^8.14.1",
     "short-uuid": "^4.2.2"
   },
