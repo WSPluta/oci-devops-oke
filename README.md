@@ -77,6 +77,9 @@ kubectl apply -k k8s/overlay/prod
 
 ## Clean up
 
+```bash
+kubectl delete -k k8s/overlay/prod
+```
 
 ```bash
 cd tf
