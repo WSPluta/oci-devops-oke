@@ -15,7 +15,7 @@ $.verbose = false;
 
 let properties = await readEnvJson();
 
-const ce = whichContainerEngine();
+const ce = await whichContainerEngine();
 properties = { ...properties, ce };
 await writeEnvJson(properties);
 

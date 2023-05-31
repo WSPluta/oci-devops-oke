@@ -43,6 +43,10 @@ terraform init
 terraform apply
 ```
 
+```bash
+cd ..
+```
+
 ## Set Environment
 
 ```bash
