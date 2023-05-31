@@ -79,6 +79,10 @@ kubectl apply -k k8s/overlay/prod
 kubectl get svc -n ingress-nginx
 ```
 
+```bash
+curl -s -H "Authentication: Bearer 123" http://LOAD_BALANCER_PUBLIC_IP/ | jq .
+```
+
 ## Clean up
 
 ```bash

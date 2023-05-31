@@ -10,3 +10,15 @@ steps:
     command: |
       echo $PATH
       cd src/hello-server
+  - type: Command
+    name: "Node version"
+    command: |
+      node --version
+  - type: Command
+    name: "OCI CLI version"
+    command: |
+      oci -v
+  - type: Command
+    name: "kubectl version"
+    command: |
+      kubectl version
