@@ -21,4 +21,4 @@ steps:
   - type: Command
     name: "kubectl version"
     command: |
-      kubectl version
+      kubectl version --client=true
