@@ -25,7 +25,7 @@ resource "oci_devops_build_pipeline_stage" "build_github_stage" {
 
   description                        = "Build Github stage"
   display_name                       = "build_github_stage"
-  build_spec_file                    = "./build_spec.yaml"
+  build_spec_file                    = "build_spec.yaml"
   image                              = "OL7_X86_64_STANDARD_10"
   primary_build_source               = "primaryBuildSource"
   stage_execution_timeout_in_seconds = "10"
