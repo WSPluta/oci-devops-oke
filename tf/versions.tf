@@ -1,8 +1,9 @@
 terraform {
   required_providers {
     oci = {
-      source  = "oracle/oci"
-      version = "~> 4.120"
+      source                = "oracle/oci"
+      version               = "~> 4.121"
+      configuration_aliases = [oci.home_region]
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -28,6 +29,10 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3"
       # https://registry.terraform.io/providers/hashicorp/random/
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
     }
   }
 }

@@ -50,12 +50,29 @@ const githubURLEscaped = githubURL.replaceAll("/", "\\/");
 
 const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
+// FIXME either manual secret creation or all automated
+const vaultId = await setVariableFromEnvOrPrompt(
+  "VAULT_OCID",
+  "Vault OCID"
+);
+const keyId = await setVariableFromEnvOrPrompt(
+  "VAULT_KEY_OCID",
+  "Vault Key OCID"
+);
+const secretId = await setVariableFromEnvOrPrompt(
+  "SECRET_OCID",
+  "Secret OCID"
+);
+
 try {
   let { exitCode, stderr } =
     await $`sed 's/REGION_NAME/${regionName}/' tf/terraform.tfvars.template \
          | sed 's/TENANCY_OCID/${tenancyId}/' \
          | sed 's/COMPARTMENT_OCID/${compartmentId}/' \
          | sed 's/SUBSCRIPTION_EMAIL/${onsEmail}/' \
+         | sed 's/VAULT_OCID/${vaultId}/' \
+         | sed 's/KEY_OCID/${keyId}/' \
+         | sed 's/SECRET_OCID/${secretId}/' \
          | sed 's/GITHUB_TOKEN/${githubToken}/' \
          | sed ${replaceCmdURL} \
          | sed 's/GITHUB_USER/${githubUser}/' > tf/terraform.tfvars`;
