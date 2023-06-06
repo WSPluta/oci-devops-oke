@@ -6,7 +6,7 @@ shell: bash
 
 steps:
   - type: Command
-    name: "Install dependencies"
+    name: "Set Environment"
     command: |
       npx zx scripts/setenv.mjs
   - type: Command
@@ -18,7 +18,7 @@ steps:
     command: |
       npx zx scripts/build.mjs auth-server
   - type: Command
-    name: "Build auth-server"
+    name: "Set Up Deployment"
     command: |
       npx zx scripts/setup.mjs
   - type: Command

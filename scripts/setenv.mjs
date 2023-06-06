@@ -19,7 +19,7 @@ const ce = await whichContainerEngine();
 properties = { ...properties, ce };
 await writeEnvJson(properties);
 
-const dependencies = [ce, "kubectl", "node"];
+const dependencies = [ce, "node"];
 await checkRequiredProgramsExist(dependencies);
 
 const namespace = await getNamespace();
