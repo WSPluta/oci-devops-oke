@@ -18,10 +18,10 @@ steps:
     command: |
       npx zx scripts/build.mjs auth-server
   - type: Command
-    name: "Set Up Deployment"
-    command: |
-      npx zx scripts/setup.mjs
-  - type: Command
     name: "Check kubeconfig file"
     command: |
       file $(pwd)/tf/generated/kubeconfig
+  - type: Command
+    name: "Check docker images"
+    command: |
+      docker images | grep server
