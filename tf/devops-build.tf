@@ -45,24 +45,14 @@ resource "oci_devops_build_pipeline_stage" "build_github_stage" {
   }
 }
 
-# resource "oci_devops_build_run" "build_stage_run" {
-#     #Required
-#     build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
+resource "oci_devops_build_run" "build_stage_run" {
+  build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
 
-#     #Optional
-#     build_run_arguments {
-#         #Required
-#         items {
-#             #Required
-#             name = var.build_run_build_run_arguments_items_name
-#             value = var.build_run_build_run_arguments_items_value
-#         }
-#     }
-#     commit_info {
-#         #Required
-#         commit_hash = var.build_run_commit_info_commit_hash
-#         repository_branch = "main"
-#         repository_url = var.github_repo_url
-#     }
-#     display_name = "build stage run"
-# }
+  build_run_arguments {
+    items {
+      name  = "run_item1"
+      value = "run_item1_value"
+    }
+  }
+  display_name = "build stage run"
+}

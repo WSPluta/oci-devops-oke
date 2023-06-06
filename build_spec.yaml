@@ -8,17 +8,20 @@ steps:
   - type: Command
     name: "Install dependencies"
     command: |
-      echo $PATH
-      cd src/hello-server
+      npx zx scripts/setenv.mjs
   - type: Command
-    name: "Node version"
+    name: "Build hello-server"
     command: |
-      node --version
+      npx zx scripts/build.mjs hello-server
   - type: Command
-    name: "OCI CLI version"
+    name: "Build auth-server"
     command: |
-      oci -v
+      npx zx scripts/build.mjs auth-server
   - type: Command
-    name: "kubectl version"
+    name: "Build auth-server"
     command: |
-      kubectl version --client=true
+      npx zx scripts/setup.mjs
+  - type: Command
+    name: "Check kubeconfig file"
+    command: |
+      file $(pwd)/tf/generated/kubeconfig
