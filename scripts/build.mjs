@@ -18,23 +18,23 @@ let properties = await readEnvJson();
 const { containerRegistryURL, namespace } = properties;
 
 const { a, _ } = argv;
-const [action] = _;
+const [action, push] = _;
 
 const project = "oci_devops_oke";
 
 if (action === "hello-server") {
-  await releaseNpm("hello-server");
+  await releaseNpm("hello-server", push);
   process.exit(0);
 }
 
 if (action === "auth-server") {
-  await releaseNpm("auth-server");
+  await releaseNpm("auth-server", push);
   process.exit(0);
 }
 
 if (a || action === "all") {
-  await releaseNpm("hello-server");
-  await releaseNpm("auth-server");
+  await releaseNpm("hello-server", push);
+  await releaseNpm("auth-server", push);
   process.exit(0);
 }
 
@@ -44,15 +44,18 @@ console.log("\tnpx zx scripts/release.mjs -a");
 console.log("\tnpx zx scripts/release.mjs hello-server");
 console.log("\tnpx zx scripts/release.mjs auth-server");
 
-async function releaseNpm(service) {
+async function releaseNpm(service, push) {
   await cd(`src/${service}`);
   const currentVersion = await getNpmVersion();
   const image_name = `${project}/${service}`;
   await buildImage(`localhost/${image_name}`, currentVersion);
   const local_image = `localhost/${image_name}:${currentVersion}`;
   const remote_image = `${containerRegistryURL}/${namespace}/${image_name}:${currentVersion}`;
+  console.log(`Local: ${chalk.yellow(local_image)}`);
   await tagImage(local_image, remote_image);
-  await pushImage(remote_image);
-  console.log(`Released: ${chalk.yellow(remote_image)}`);
+  if (push) {
+    await pushImage(remote_image);
+    console.log(`Released: ${chalk.yellow(remote_image)}`);
+  }
   await cd("../..");
 }

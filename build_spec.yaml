@@ -14,6 +14,10 @@ steps:
     command: |
       cat .env.json
   - type: Command
+    name: "Docker Login"
+    command: |
+      docker login ${}
+  - type: Command
     name: "Build hello-server"
     command: |
       npx zx scripts/build.mjs hello-server
@@ -29,3 +33,11 @@ steps:
     name: "Check docker images"
     command: |
       docker images | grep server
+
+outputArtifacts:
+  - name: hello-server
+    type: DOCKER_IMAGE
+    location: hello-server
+  - name: oke-kubeconfig
+    type: BINARY
+    location: ${OCI_WORKSPACE_DIR}/tf/generated/kubeconfig
