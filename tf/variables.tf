@@ -43,3 +43,11 @@ variable "key_devops_ocid" {
 variable "github_access_token_secret" {
   type = string
 }
+
+variable "ocir_user" {
+  type = string
+}
+
+variable "ocir_user_token" {
+  type = string
+}

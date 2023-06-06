@@ -51,17 +51,17 @@ const githubURLEscaped = githubURL.replaceAll("/", "\\/");
 const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
 // FIXME either manual secret creation or all automated
-const vaultId = await setVariableFromEnvOrPrompt(
-  "VAULT_OCID",
-  "Vault OCID"
-);
+const vaultId = await setVariableFromEnvOrPrompt("VAULT_OCID", "Vault OCID");
 const keyId = await setVariableFromEnvOrPrompt(
   "VAULT_KEY_OCID",
   "Vault Key OCID"
 );
-const secretId = await setVariableFromEnvOrPrompt(
-  "SECRET_OCID",
-  "Secret OCID"
+const secretId = await setVariableFromEnvOrPrompt("SECRET_OCID", "Secret OCID");
+
+const ocirUser = await setVariableFromEnvOrPrompt("OCIR_USER", "OCIR User");
+const ocirUserToken = await setVariableFromEnvOrPrompt(
+  "OCIR_USER_TOKEN",
+  "OCIR User Token"
 );
 
 try {
@@ -70,6 +70,8 @@ try {
          | sed 's/TENANCY_OCID/${tenancyId}/' \
          | sed 's/COMPARTMENT_OCID/${compartmentId}/' \
          | sed 's/SUBSCRIPTION_EMAIL/${onsEmail}/' \
+         | sed 's/OCIR_USER/${ocirUser}/' \
+         | sed 's/OCIR_USER_TOKEN/${ocirUserToken}/' \
          | sed 's/VAULT_OCID/${vaultId}/' \
          | sed 's/KEY_OCID/${keyId}/' \
          | sed 's/SECRET_OCID/${secretId}/' \

@@ -10,6 +10,10 @@ steps:
     command: |
       npx zx scripts/setenv.mjs
   - type: Command
+    name: "Print .env.json"
+    command: |
+      cat .env.json
+  - type: Command
     name: "Build hello-server"
     command: |
       npx zx scripts/build.mjs hello-server

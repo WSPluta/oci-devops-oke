@@ -6,18 +6,7 @@ resource "oci_identity_dynamic_group" "devops_dynamic_group" {
   provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "DevOps Dynamic Group for ${random_string.deploy_id.result}"
-  matching_rule  = <<EOF
-    ALL {
-      resource.compartment.id = '${var.compartment_ocid}', 
-      ANY {
-        resource.type = 'devopsdeploypipeline', 
-        resource.type = 'devopsbuildpipeline', 
-        resource.type = 'devopsrepository', 
-        resource.type = 'devopsconnection', 
-        resource.type = 'devopstrigger'
-      }
-    }
-  EOF
+  matching_rule  = "ALL {resource.compartment.id = '${var.compartment_ocid}', ANY {resource.type = 'devopsdeploypipeline', resource.type = 'devopsbuildpipeline', resource.type = 'devopsrepository', resource.type = 'devopsconnection', resource.type = 'devopstrigger'}}"
   name           = local.dynamic_group_name
 }
 
