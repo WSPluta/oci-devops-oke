@@ -45,4 +45,4 @@ outputArtifacts:
   #   location: localhost/oci_devops_oke/auth-server
   - name: oke-kubeconfig
     type: BINARY
-    location: ${OCI_WORKSPACE_DIR}/tf/generated/kubeconfig
+    location: ${OCI_PRIMARY_SOURCE_DIR}/tf/generated/kubeconfig
