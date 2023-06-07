@@ -16,8 +16,9 @@ steps:
   - type: Command
     name: "Docker Login"
     command: |
-      export OCIR_URL=$(cat  .env.json | grep containerRegistryURL | awk '{print $2}' | tr -d '",')
-      echo $OCI_OCIR_TOKEN | docker login $OCIR_URL --username $OCI_OCIR_USER --password-stdin
+      export OCIR_URL=$(cat .env.json | grep containerRegistryURL | awk '{print $2}' | tr -d '",')
+      export NAMESPACE=$(cat .env.json | grep namespace | awk '{print $2}' | tr -d '",')
+      echo $OCI_OCIR_TOKEN | docker login $OCIR_URL --username "$NAMESPACE/$OCI_OCIR_USER" --password-stdin
   - type: Command
     name: "Build hello-server"
     command: |
