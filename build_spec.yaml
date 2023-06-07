@@ -37,12 +37,12 @@ steps:
       docker images | grep server
 
 outputArtifacts:
-  - name: hello-server
-    type: DOCKER_IMAGE
-    location: localhost/oci_devops_oke/hello-server
-  - name: auth-server
-    type: DOCKER_IMAGE
-    location: localhost/oci_devops_oke/auth-server
+  # - name: hello-server
+  #   type: DOCKER_IMAGE
+  #   location: localhost/oci_devops_oke/hello-server
+  # - name: auth-server
+  #   type: DOCKER_IMAGE
+  #   location: localhost/oci_devops_oke/auth-server
   - name: oke-kubeconfig
     type: BINARY
     location: ${OCI_WORKSPACE_DIR}/tf/generated/kubeconfig
