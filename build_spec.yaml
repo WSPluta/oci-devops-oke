@@ -22,23 +22,19 @@ steps:
   - type: Command
     name: "Build hello-server"
     command: |
-      npx zx scripts/build.mjs hello-server
+      npx zx scripts/build.mjs hello-server push
   - type: Command
     name: "Build auth-server"
     command: |
-      npx zx scripts/build.mjs auth-server
-  - type: Command
-    name: "Check kubeconfig file"
-    command: |
-      file $(pwd)/tf/generated/kubeconfig
+      npx zx scripts/build.mjs auth-server push
   - type: Command
     name: "Check docker images"
     command: |
       docker images | grep server
-  - type: Command
-    name: "OCI CLI get namespace"
-    command: |
-      oci os ns get --query 'data'
+  # - type: Command
+  #   name: "OCI CLI get namespace"
+  #   command: |
+  #     oci os ns get --query 'data'
 
 # outputArtifacts:
 #   - name: hello-server
