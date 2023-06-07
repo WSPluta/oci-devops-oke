@@ -35,6 +35,10 @@ steps:
     name: "Check docker images"
     command: |
       docker images | grep server
+  - type: Command
+    name: "OCI CLI get namespace"
+    command: |
+      oci os ns get --query 'data'
 
 outputArtifacts:
   # - name: hello-server
