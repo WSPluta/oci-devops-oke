@@ -14,13 +14,10 @@ steps:
     command: |
       cat .env.json
   - type: Command
-    name: "Print OCI_OCIR_TOKEN"
-    command: |
-      echo $OCI_OCIR_TOKEN
-  - type: Command
     name: "Docker Login"
     command: |
-      cat .env.json | jq '.containerRegistryToken' | docker login $(cat .env.json | jq '.containerRegistryURL') --username $(cat .env.json | jq '.containerRegistryUser') --password-stdin
+      export OCIR_URL=$(cat  ../.env.json | grep containerRegistryURL | awk '{print $2}' | tr -d '",')
+      echo $OCI_OCIR_TOKEN | docker login $OCIR_URL --username $OCI_OCIR_USER --password-stdin
   - type: Command
     name: "Build hello-server"
     command: |
