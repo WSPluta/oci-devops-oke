@@ -17,7 +17,11 @@ steps:
   - type: Command
     name: "Print .env.json"
     command: |
-      cat .env.json | jq
+      cat .env.json
+  - type: Command
+    name: "Test"
+    command: |
+      cat .env.json | jq '.'
   - type: Command
     name: "Print hello-server version"
     command: |
