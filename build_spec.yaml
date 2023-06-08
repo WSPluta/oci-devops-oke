@@ -12,8 +12,8 @@ steps:
   - type: Command
     name: "Install jq"
     command: |
-      dnf makecache --refresh
-      dnf install jq
+      yum update
+      yum install jq
   - type: Command
     name: "Print .env.json"
     command: |
