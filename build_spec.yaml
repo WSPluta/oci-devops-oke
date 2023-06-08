@@ -53,7 +53,7 @@ steps:
 outputArtifacts:
   - name: hello-server
     type: DOCKER_IMAGE
-    location: hello-server:latest
+    location: hello-server:1.0.0
   - name: auth-server
     type: DOCKER_IMAGE
-    location: auth-server:latest
+    location: auth-server:$HELLO_VERSION
