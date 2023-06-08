@@ -53,7 +53,7 @@ steps:
 outputArtifacts:
   - name: hello-server
     type: DOCKER_IMAGE
-    location: localhost/hello-server:$HELLO_VERSION
+    location: localhost/oci_devops_oke/hello-server:$HELLO_VERSION
 #   - name: auth-server
 #     type: DOCKER_IMAGE
 #     location: auth-server:latest
