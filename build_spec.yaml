@@ -10,23 +10,33 @@ steps:
     command: |
       npx zx scripts/setenv.mjs
   - type: Command
+    name: "Install jq"
+    command: |
+      dnf makecache --refresh
+      dnf install jq
+  - type: Command
     name: "Print .env.json"
     command: |
-      cat .env.json
+      cat .env.json | jq
   - type: Command
-    name: "Docker Login"
+    name: "Print hello-server version"
     command: |
-      export OCIR_URL=$(cat .env.json | grep containerRegistryURL | awk '{print $2}' | tr -d '",')
-      export NAMESPACE=$(cat .env.json | grep namespace | awk '{print $2}' | tr -d '",')
-      echo $OCI_OCIR_TOKEN | docker login $OCIR_URL --username "$NAMESPACE/$OCI_OCIR_USER" --password-stdin
+      export HELLO_VERSION=$(cat src/hello-server/package.json| jq .version)
+      echo $HELLO_VERSION
+  # - type: Command
+  #   name: "Docker Login"
+  #   command: |
+  #     export OCIR_URL=$(cat .env.json | grep containerRegistryURL | awk '{print $2}' | tr -d '",')
+  #     export NAMESPACE=$(cat .env.json | grep namespace | awk '{print $2}' | tr -d '",')
+  #     echo $OCI_OCIR_TOKEN | docker login $OCIR_URL --username "$NAMESPACE/$OCI_OCIR_USER" --password-stdin
   - type: Command
     name: "Build hello-server"
     command: |
-      npx zx scripts/build.mjs hello-server push
+      npx zx scripts/build.mjs hello-server
   - type: Command
     name: "Build auth-server"
     command: |
-      npx zx scripts/build.mjs auth-server push
+      npx zx scripts/build.mjs auth-server
   - type: Command
     name: "Check docker images"
     command: |
@@ -36,13 +46,10 @@ steps:
   #   command: |
   #     oci os ns get --query 'data'
 
-# outputArtifacts:
-#   - name: hello-server
-#     type: DOCKER_IMAGE
-#     location: localhost/oci_devops_oke/hello-server
+outputArtifacts:
+  - name: hello-server
+    type: DOCKER_IMAGE
+    location: localhost/hello-server:$HELLO_VERSION
 #   - name: auth-server
 #     type: DOCKER_IMAGE
-#     location: localhost/oci_devops_oke/auth-server
-#   - name: oke-kubeconfig
-#     type: BINARY
-#     location: ${OCI_PRIMARY_SOURCE_DIR}/tf/generated/kubeconfig
+#     location: auth-server:latest
