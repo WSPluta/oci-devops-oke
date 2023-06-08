@@ -5,8 +5,8 @@ failImmediatelyOnError: true
 shell: bash
 
 exportedVariables:
-    - HELLO_VERSION
-    - AUTH_VERSION
+  - HELLO_VERSION
+  - AUTH_VERSION
 
 steps:
   - type: Command
