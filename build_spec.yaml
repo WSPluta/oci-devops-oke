@@ -4,9 +4,10 @@ timeoutInSeconds: 1000
 failImmediatelyOnError: true
 shell: bash
 
-exportedVariables:
-  - HELLO_VERSION
-  - AUTH_VERSION
+env:
+  exportedVariables:
+    - HELLO_VERSION
+    - AUTH_VERSION
 
 steps:
   - type: Command
