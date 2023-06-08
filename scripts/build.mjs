@@ -47,15 +47,13 @@ console.log("\tnpx zx scripts/release.mjs auth-server");
 async function releaseNpm(service, push) {
   await cd(`src/${service}`);
   const currentVersion = await getNpmVersion();
-  const image_name = `${project}/${service}`;
-  await buildImage(`localhost/${image_name}`, currentVersion);
-  const local_image = `localhost/${image_name}:${currentVersion}`;
-  const remote_image = `${containerRegistryURL}/${namespace}/${image_name}:${currentVersion}`;
-  console.log(`Local: ${chalk.yellow(local_image)}`);
-  await tagImage(local_image, remote_image);
+  await buildImage(`${service}`, currentVersion);
+  const localImage = `${service}:${currentVersion}`;
+  const remoteImage = `${containerRegistryURL}/${namespace}/${project}/${service}:${currentVersion}`;
+  await tagImage(localImage, remoteImage);
   if (push) {
-    await pushImage(remote_image);
-    console.log(`Released: ${chalk.yellow(remote_image)}`);
+    await pushImage(remoteImage);
+    console.log(`Released: ${chalk.yellow(remoteImage)}`);
   }
   await cd("../..");
 }
