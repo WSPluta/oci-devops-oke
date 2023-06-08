@@ -6,14 +6,14 @@ shell: bash
 
 steps:
   - type: Command
+    name: "Install jq"
+    command: |
+      yum update -y
+      yum install jq -y
+  - type: Command
     name: "Set Environment"
     command: |
       npx zx scripts/setenv.mjs
-  - type: Command
-    name: "Install jq"
-    command: |
-      yum update
-      yum install jq
   - type: Command
     name: "Print .env.json"
     command: |
@@ -22,7 +22,7 @@ steps:
     name: "Print hello-server version"
     command: |
       export HELLO_VERSION=$(cat src/hello-server/package.json| jq .version)
-      echo $HELLO_VERSION
+      echo hello-server:v$HELLO_VERSION
   # - type: Command
   #   name: "Docker Login"
   #   command: |
