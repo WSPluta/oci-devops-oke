@@ -2,7 +2,11 @@ version: 0.1
 component: build
 timeoutInSeconds: 1000
 failImmediatelyOnError: true
-shell: bash           
+shell: bash
+
+exportedVariables:
+    - HELLO_VERSION
+    - AUTH_VERSION
 
 steps:
   - type: Command
@@ -26,7 +30,7 @@ steps:
     name: "Print hello-server version"
     command: |
       export HELLO_VERSION=$(cat src/hello-server/package.json| jq .version)
-      echo hello-server:v$HELLO_VERSION
+      export AUTH_VERSION=$(cat src/auth-server/package.json| jq .version)
   # - type: Command
   #   name: "Docker Login"
   #   command: |
@@ -53,7 +57,7 @@ steps:
 outputArtifacts:
   - name: hello-server
     type: DOCKER_IMAGE
-    location: hello-server:1.0.0
+    location: hello-server:${HELLO_VERSION}
   - name: auth-server
     type: DOCKER_IMAGE
-    location: auth-server:$HELLO_VERSION
+    location: auth-server:${AUTH_VERSION}
