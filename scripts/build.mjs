@@ -39,10 +39,10 @@ if (a || action === "all") {
 }
 
 console.log("Usage:");
-console.log("\tnpx zx scripts/release.mjs all");
-console.log("\tnpx zx scripts/release.mjs -a");
-console.log("\tnpx zx scripts/release.mjs hello-server");
-console.log("\tnpx zx scripts/release.mjs auth-server");
+console.log("\tnpx zx scripts/build.mjs all");
+console.log("\tnpx zx scripts/build.mjs -a");
+console.log("\tnpx zx scripts/build.mjs hello-server");
+console.log("\tnpx zx scripts/build.mjs auth-server");
 
 async function releaseNpm(service, push) {
   await cd(`src/${service}`);
