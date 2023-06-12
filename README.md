@@ -22,17 +22,19 @@
 - Node.js
 - Kubectl
 
-## Create TF vars file
+## Environment
+
+### Create TF vars file
 
 Answer all the questions prompted when running the following command:
 ```bash
-zx scripts/tfvars.mjs
+zx scripts/tfvars.mjs env
 ```
 
 ## Deploy Infrastructure
 
 ```bash
-cd tf
+cd tf-env
 ```
 
 ```bash
@@ -47,7 +49,36 @@ terraform apply
 cd ..
 ```
 
-## Set Environment
+## DevOps
+
+### Create TF vars file
+
+Answer all the questions prompted when running the following command:
+```bash
+zx scripts/tfvars.mjs devops
+```
+
+## Deploy Infrastructure
+
+```bash
+cd tf-devops
+```
+
+```bash
+terraform init
+```
+
+```bash
+terraform apply
+```
+
+```bash
+cd ..
+```
+
+---
+
+## Local deployment
 
 ```bash
 npx zx scripts/setenv.mjs

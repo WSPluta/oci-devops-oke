@@ -30,9 +30,5 @@ terraform {
       version = "~> 3"
       # https://registry.terraform.io/providers/hashicorp/random/
     }
-    time = {
-      source  = "hashicorp/time"
-      version = "0.9.1"
-    }
   }
 }

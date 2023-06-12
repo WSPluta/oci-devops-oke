@@ -24,7 +24,7 @@ resource "oci_devops_project" "devops_project" {
   compartment_id = var.compartment_ocid
   name           = "devops_project_${random_string.deploy_id.result}"
   notification_config {
-    topic_id = oci_ons_notification_topic.devops_topic.id
+    topic_id = var.devops_ons_topic_ocid
   }
   description = "DevOps Project for ${random_string.deploy_id.result}"
 }
@@ -32,7 +32,7 @@ resource "oci_devops_project" "devops_project" {
 # resource "oci_devops_deploy_environment" "oke_deploy_environment" {
 #   deploy_environment_type = "OKE_CLUSTER"
 #   project_id              = oci_devops_project.devops_project.id
-#   cluster_id              = module.oke-quickstart.oke_cluster_ocid
+#   cluster_id              = var.oke_cluster_ocid
 #   description             = "Environment for ${random_string.deploy_id.result}"
 #   display_name            = "environment_${random_string.deploy_id.result}"
 # }
