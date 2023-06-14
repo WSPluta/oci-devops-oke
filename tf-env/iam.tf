@@ -6,8 +6,10 @@ resource "oci_identity_dynamic_group" "devops_dynamic_group" {
   provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "DevOps Dynamic Group for ${random_string.deploy_id.result}"
-  matching_rule  = "ALL {resource.compartment.id = '${var.compartment_ocid}', ANY {resource.type = 'devopsdeploypipeline', resource.type = 'devopsbuildpipeline', resource.type = 'devopsrepository', resource.type = 'devopsconnection', resource.type = 'devopstrigger'}}"
-  name           = local.dynamic_group_name
+  matching_rule  = "ANY {resource.compartment.id = '${var.compartment_ocid}', ALL { resource.type = 'instance-family', resource.type = 'devopsdeploypipeline', resource.type = 'devopsbuildpipeline', resource.type = 'devopsrepository', resource.type = 'devopsconnection', resource.type = 'devopstrigger' }}"
+  # matching_rule  = "Any { ALL {resource.type = 'instance-family', resource.compartment.id = '${var.compartment_ocid}'}, ALL {resource.compartment.id = '${var.compartment_ocid}', ANY {resource.type = 'devopsdeploypipeline', resource.type = 'devopsbuildpipeline', resource.type = 'devopsrepository', resource.type = 'devopsconnection', resource.type = 'devopstrigger'}}}"
+  # matching_rule  = "Any {ALL {resource.type = 'instance-family', resource.compartment.id = '${var.compartment_ocid}'}, ALL {resource.type = 'devopsdeploypipeline', resource.compartment.id = '${var.compartment_ocid}'},ALL {resource.type = 'devopsrepository', resource.compartment.id = '${var.compartment_ocid}'},ALL {resource.type = 'devopsbuildpipeline',resource.compartment.id = '${var.compartment_ocid}'}}"
+  name = local.dynamic_group_name
 }
 
 
