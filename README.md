@@ -1,6 +1,6 @@
 # OCI DevOps Service with Kubernetes
 
-## Workshop Structure
+## Workshop Structure
 
 > Requirements: GitHub Account
 
@@ -32,7 +32,7 @@
   - Task 1: Tear down DevOps
   - Task 2: Tear down Infrastructure
 
-## First Step
+## GitHub First Step
 
 1. **Fork** this repository.
 2. Create a Token:
@@ -47,12 +47,6 @@
     - Select your `oci-devops-oke`.
     - On permissions, set **Contents** to **Read-only**. (to be confirmed that this is enough)
     - Click **Generate token**.
-
-## Requirements
-
-- OCI CLI is [installed and configured](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm).
-- Node.js
-- Kubectl
 
 ## Environment
 
