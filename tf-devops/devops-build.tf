@@ -60,47 +60,57 @@ resource "oci_devops_build_pipeline_stage" "build_github_stage" {
   }
 }
 
-# resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
+resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
 
-#   depends_on = [oci_devops_build_pipeline_stage.build_github_stage]
+  depends_on = [oci_devops_build_pipeline_stage.build_github_stage]
 
-#   #Required
-#   build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
-#   build_pipeline_stage_predecessor_collection {
-#     #Required
-#     items {
-#       #Required
-#       id = oci_devops_build_pipeline_stage.build_github_stage.id
-#     }
-#   }
+  build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
+  build_pipeline_stage_predecessor_collection {
+    items {
+      id = oci_devops_build_pipeline_stage.build_github_stage.id
+    }
+  }
 
-#   build_pipeline_stage_type = "DELIVER_ARTIFACT"
+  build_pipeline_stage_type = "DELIVER_ARTIFACT"
 
-#   deliver_artifact_collection {
-#     items {
-#       artifact_id   = oci_devops_deploy_artifact.command_spec_ga.id
-#       artifact_name = var.deliver_command_spec_artifact_name
-#     }
-#     items {
-#       artifact_id   = oci_devops_deploy_artifact.docker_image_dynamic.id
-#       artifact_name = var.deliver_artiifact_docker_image_dynamic_name
-#     }
-#     items {
-#       artifact_id   = oci_devops_deploy_artifact.docker_image_static.id
-#       artifact_name = var.deliver_artiifact_docker_image_static_name
-#     }
-#   }
-#   display_name = "Deliver Artifact Stage"
-# }
+  deliver_artifact_collection {
+    items {
+      artifact_id   = oci_devops_deploy_artifact.docker_image.id
+      artifact_name = "hello_server"
+    }
+    items {
+      artifact_id   = oci_devops_deploy_artifact.docker_image.id
+      artifact_name = "auth_server"
+    }
+  }
+  display_name = "Deliver Artifact Stage"
+}
 
-# resource "oci_devops_build_run" "build_stage_run" {
-#   build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
+locals {
+  url_split = split("/", var.github_repo_url)
+  repo_name = element(local.url_split, length(local.url_split) - 1)
+}
 
-#   build_run_arguments {
-#     items {
-#       name  = "run_item1"
-#       value = "run_item1_value"
-#     }
-#   }
-#   display_name = "build stage run"
-# }
+resource "oci_devops_deploy_artifact" "docker_image" {
+
+  argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
+
+  deploy_artifact_source {
+    #Required
+    deploy_artifact_source_type = "GENERIC_ARTIFACT"
+    deploy_artifact_version     = "1.0.0"
+    deploy_artifact_path        = "hello_server"
+
+    #Optional
+    image_uri    = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}"
+    image_digest = " "
+    #image_digest  = oci_devops_build_run.test_build_run.build_outputs[0].delivered_artifacts[0].items[0].delivered_artifact_hash
+    repository_id = oci_devops_repository.github_mirrored_repository.id
+  }
+
+  deploy_artifact_type = "GENERIC_FILE"
+  project_id           = oci_devops_project.devops_project.id
+
+  #Optional
+  display_name = "docker_image_dynamic"
+}

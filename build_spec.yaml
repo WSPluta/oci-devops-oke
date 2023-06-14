@@ -1,5 +1,6 @@
 version: 0.1             
 component: build
+# runAs: root
 timeoutInSeconds: 1000
 failImmediatelyOnError: true
 shell: bash
@@ -46,9 +47,12 @@ steps:
       docker images | grep server
 
 outputArtifacts:
-  - name: hello-server
+  - name: hello_server
     type: DOCKER_IMAGE
     location: hello-server:${HELLO_VERSION}
-  - name: auth-server
+  - name: auth_server
     type: DOCKER_IMAGE
     location: auth-server:${AUTH_VERSION}
+  - name: hello_deployment_yaml
+    type: BINARY
+    location: ${OCI_PRIMARY_SOURCE_DIR}/k8s/hello-server/hello-server.yaml

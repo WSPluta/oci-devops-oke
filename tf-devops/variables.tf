@@ -16,6 +16,14 @@ variable "compartment_ocid" {
   type = string
 }
 
+variable "namespace" {
+  type = string
+}
+
+variable "region_key" {
+  type = string
+}
+
 variable "github_repo_url" {
   type = string
 }

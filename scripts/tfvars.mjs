@@ -1,6 +1,7 @@
 #!/usr/bin/env zx
 
 import {
+  getNamespace,
   getRegions,
   getTenancyId,
   searchCompartmentIdByName,
@@ -78,6 +79,8 @@ async function envTFvars() {
 async function devopsTFvars() {
   const tenancyId = await getTenancyId();
 
+  const namespace = await getNamespace();
+
   const regions = await getRegions();
   const regionName = await setVariableFromEnvOrPrompt(
     "OCI_REGION",
@@ -86,6 +89,9 @@ async function devopsTFvars() {
   );
 
   await cd("tf-env");
+
+  const { key } = regions.find((r) => r.name === regionName);
+  const regionKey = key;
 
   const { stdout } = await $`terraform output -json`;
   const terraformOutput = JSON.parse(stdout);
@@ -128,6 +134,8 @@ async function devopsTFvars() {
       await $`sed 's/REGION_NAME/${regionName}/' tf-devops/terraform.tfvars.template \
            | sed 's/TENANCY_OCID/${tenancyId}/' \
            | sed 's/COMPARTMENT_OCID/${compartmentId}/' \
+           | sed 's/NAMESPACE/${namespace}/' \
+           | sed 's/REGION_KEY/${regionKey}/' \
            | sed 's/ONS_TOPIC_ID/${devopsOnsTopicId}/' \
            | sed 's/OKE_CLUSTER_ID/${okeClusterId}/' \
            | sed 's/OCIR_USER/${userName}/' \
