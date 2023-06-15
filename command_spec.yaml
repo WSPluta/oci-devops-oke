@@ -1,0 +1,51 @@
+version: 0.1
+component: command
+timeoutInSeconds: 10000
+failImmediatelyOnError: true
+shell: bash
+
+# env:
+#   variables:
+#     key1: "value1"
+#     key2: "value2"
+#   vaultVariables:
+#     key: "secret-id"
+ 
+# inputArtifacts:
+#   - name: artifact-name
+#     type: GENERIC_ARTIFACT
+#     artifactId: "artifact-ocid"
+#     registryId: OCID of the Artifact Registry
+#     path: path of the artifact in the Registry
+#     version: version of the artifact
+#     location: target-location
+#   - name: artifact-name
+#     type: URL
+#     url: downloadable link
+#     location: target-location
+ 
+steps:
+  - type: Command
+    name: Print Variables
+    shell: bash
+    timeoutInSeconds: 650
+    command: |
+      echo "OCI_REGION_NAME: ${OCI_REGION_NAME}"
+      echo "OCI_OKE_CLUSTER_ID: ${OCI_OKE_CLUSTER_ID}"
+      echo "OCI_OKE_ENDPOINT: ${OCI_OKE_ENDPOINT}"
+      echo "OCI_OKE_ENDPOINT_SUBNET_ID: ${OCI_OKE_ENDPOINT_SUBNET_ID}"
+  - type: Command
+    name: "Git Clone"
+    shell: bash
+    timeoutInSeconds: 300
+    command: |
+      git version
+  - type: Command
+    name: "Setup kube config and get nodes"
+    shell: bash
+    timeoutInSeconds: 600
+    command: |
+      oci ce cluster create-kubeconfig --cluster-id ${OCI_OKE_CLUSTER_ID} \
+        --file $HOME/.kube/config --region ${OCI_REGION_NAME} --token-version 2.0.0  \
+        --kube-endpoint ${OCI_OKE_ENDPOINT}
+      kubectl get nodes

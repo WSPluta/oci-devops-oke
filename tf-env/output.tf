@@ -2,8 +2,17 @@ output "devops_ons_topic_ocid" {
   value = oci_ons_notification_topic.devops_ons_topic.id
 }
 
+output "kubeconfig" {
+  value     = module.oke-quickstart.kubeconfig
+  sensitive = true
+}
+
 output "oke_cluster_ocid" {
   value = module.oke-quickstart.oke_cluster_ocid
+}
+
+output "oke_endpoint_subnet_ocid" {
+  value = module.oke-quickstart.subnets.oke_k8s_endpoint_subnet.subnet_id
 }
 
 output "github_access_token_secret_ocid" {

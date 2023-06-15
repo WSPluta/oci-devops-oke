@@ -12,16 +12,6 @@ resource "oci_devops_build_pipeline" "build_pipeline" {
       default_value = var.tenancy_ocid
       description   = "OCI Tenanci OCID"
     }
-    items {
-      name          = "OCI_OCIR_USER"
-      default_value = var.ocir_user
-      description   = "OCI OCIR USER"
-    }
-    items {
-      name          = "OCI_OCIR_TOKEN"
-      default_value = var.ocir_user_token
-      description   = "OCI OCIR TOKEN"
-    }
   }
   description  = "Servers' Build Pipeline for ${random_string.deploy_id.result}"
   display_name = "Build Pipeline for ${random_string.deploy_id.result}"

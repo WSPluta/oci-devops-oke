@@ -51,3 +51,11 @@ variable "devops_ons_topic_ocid" {
 variable "oke_cluster_ocid" {
   type = string
 }
+
+variable "oke_cluster_endpoint" {
+  type = string
+}
+
+variable "oke_cluster_endpoint_subnet_ocid" {
+  type = string
+}
