@@ -129,6 +129,9 @@ async function devopsTFvars() {
   const githubURLEscaped = githubURL.replaceAll("/", "\\/");
   const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
+  const tokenEscaped = userAuthToken; //.replaceAll("/", "\\/");
+  const replaceCmdToken = `s/OCIR_AUTH_TOKEN/${tokenEscaped}/`;
+
   try {
     let { exitCode, stderr } =
       await $`sed 's/REGION_NAME/${regionName}/' tf-devops/terraform.tfvars.template \
@@ -139,7 +142,7 @@ async function devopsTFvars() {
            | sed 's/ONS_TOPIC_ID/${devopsOnsTopicId}/' \
            | sed 's/OKE_CLUSTER_ID/${okeClusterId}/' \
            | sed 's/OCIR_USER/${userName}/' \
-           | sed 's/OCIR_AUTH_TOKEN/${userAuthToken}/' \
+           | sed ${replaceCmdToken} \
            | sed 's/SECRET_OCID/${githubAccessTokenSecretId}/' \
            | sed ${replaceCmdURL} \
            | sed 's/GITHUB_USER/${githubUser}/' > tf-devops/terraform.tfvars`;
