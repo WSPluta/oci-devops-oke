@@ -138,6 +138,7 @@ async function devopsTFvars() {
   const githubURLEscaped = githubURL.replaceAll("/", "\\/");
   const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
+  // TODO Delete me
   const tokenEscaped = userAuthToken; //.replaceAll("/", "\\/");
   const replaceCmdToken = `s/OCIR_AUTH_TOKEN/${tokenEscaped}/`;
 

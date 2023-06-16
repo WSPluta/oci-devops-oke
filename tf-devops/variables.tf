@@ -40,6 +40,7 @@ variable "ocir_user" {
   type = string
 }
 
+# TODO delete me
 variable "ocir_user_token" {
   type = string
 }
