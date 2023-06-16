@@ -67,6 +67,8 @@ cd tf-env
 terraform init
 ```
 
+> Answer yes when prompt
+
 ```bash
 terraform apply
 ```
@@ -97,6 +99,8 @@ terraform init
 ```bash
 terraform apply
 ```
+
+> Answer yes when prompt
 
 ```bash
 cd ..

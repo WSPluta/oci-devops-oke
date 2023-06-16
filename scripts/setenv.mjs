@@ -49,11 +49,6 @@ const containerRegistryUser = await setVariableFromEnvOrPrompt(
 );
 console.log(`containerRegistryUser: ${containerRegistryUser}`);
 
-const containerRegistryToken = await setVariableFromEnvOrPrompt(
-  "OCI_OCIR_TOKEN",
-  "OCI Auth Token for OCI Registry"
-);
-
-properties = { ...properties, containerRegistryUser, containerRegistryToken };
+properties = { ...properties, containerRegistryUser };
 
 await writeEnvJson(properties);

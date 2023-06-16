@@ -6,12 +6,13 @@ const shell = process.env.SHELL | "/bin/zsh";
 $.shell = shell;
 $.verbose = false;
 
-const {
-  containerRegistryURL,
-  containerRegistryUser,
-  containerRegistryToken,
-  namespace,
-} = await readEnvJson();
+const { containerRegistryURL, containerRegistryUser, namespace } =
+  await readEnvJson();
+
+const containerRegistryToken = await setVariableFromEnvOrPrompt(
+  "OCI_OCIR_TOKEN",
+  "OCI Auth Token for OCI Registry"
+);
 
 configureKubectl();
 
