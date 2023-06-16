@@ -19,15 +19,14 @@ steps:
   - type: Command
     name: "Set Environment"
     command: |
+      node --version
+      npm --version
+      npx --version
       npx zx scripts/setenv.mjs
   - type: Command
     name: "Print .env.json"
     command: |
       cat .env.json
-  - type: Command
-    name: "Test"
-    command: |
-      cat .env.json | jq '.'
   - type: Command
     name: "Print hello-server version"
     command: |
@@ -41,10 +40,6 @@ steps:
     name: "Build auth-server"
     command: |
       npx zx scripts/build.mjs auth-server
-  - type: Command
-    name: "Check docker images"
-    command: |
-      docker images | grep server
 
 outputArtifacts:
   - name: hello_server

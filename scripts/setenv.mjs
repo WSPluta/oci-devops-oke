@@ -24,6 +24,8 @@ await checkRequiredProgramsExist(dependencies);
 
 const namespace = await getNamespace();
 const tenancyId = await getTenancyId();
+console.log(`namespace: ${namespace}`);
+console.log(`tenancyId: ${tenancyId}`);
 properties = { ...properties, namespace, tenancyId };
 await writeEnvJson(properties);
 
@@ -36,6 +38,7 @@ const regionName = await setVariableFromEnvOrPrompt(
 const { key } = regions.find((r) => r.name === regionName);
 const regionKey = key;
 const containerRegistryURL = `${key}.ocir.io`;
+console.log(`OCIR URL: ${containerRegistryURL}`);
 
 properties = { ...properties, regionKey, containerRegistryURL };
 await writeEnvJson(properties);
@@ -44,6 +47,7 @@ const containerRegistryUser = await setVariableFromEnvOrPrompt(
   "OCI_OCIR_USER",
   "OCI Username (usually an email)"
 );
+console.log(`containerRegistryUser: ${containerRegistryUser}`);
 
 const containerRegistryToken = await setVariableFromEnvOrPrompt(
   "OCI_OCIR_TOKEN",

@@ -30,10 +30,10 @@ steps:
     shell: bash
     timeoutInSeconds: 650
     command: |
-      echo "OCI_REGION_NAME: ${OCI_REGION_NAME}"
-      echo "OCI_OKE_CLUSTER_ID: ${OCI_OKE_CLUSTER_ID}"
-      echo "OCI_OKE_ENDPOINT: ${OCI_OKE_ENDPOINT}"
-      echo "OCI_OKE_ENDPOINT_SUBNET_ID: ${OCI_OKE_ENDPOINT_SUBNET_ID}"
+      echo "OCI_REGION_NAME: ${region}"
+      echo "OCI_OKE_CLUSTER_ID: ${cluster}"
+      echo "OCI_OKE_ENDPOINT: ${endpoint}"
+      echo "OCI_OKE_ENDPOINT_SUBNET_ID: ${subnet}"
   - type: Command
     name: "Git Clone"
     shell: bash

@@ -1,4 +1,4 @@
-config_file_profile          = "DEFAULT"
+config_file_profile               = "DEFAULT"
 region                            = "REGION_NAME"
 tenancy_ocid                      = "TENANCY_OCID"
 compartment_ocid                  = "COMPARTMENT_OCID"
