@@ -9,6 +9,7 @@ env:
   exportedVariables:
     - HELLO_VERSION
     - AUTH_VERSION
+    - BUILDRUN_HASH
 
 steps:
   - type: Command
@@ -30,6 +31,7 @@ steps:
   - type: Command
     name: "Print hello-server version"
     command: |
+      export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       export HELLO_VERSION=$(cat src/hello-server/package.json| jq .version | tr -d '/"')
       export AUTH_VERSION=$(cat src/auth-server/package.json| jq .version | tr -d '/"')
   - type: Command
@@ -48,6 +50,9 @@ outputArtifacts:
   - name: auth_server
     type: DOCKER_IMAGE
     location: auth-server:${AUTH_VERSION}
+  - name: deploy_command_spec
+    type: BINARY
+    location: ${OCI_PRIMARY_SOURCE_DIR}/command_spec.yaml
   - name: hello_deployment_yaml
     type: BINARY
     location: ${OCI_PRIMARY_SOURCE_DIR}/k8s/hello-server/hello-server.yaml

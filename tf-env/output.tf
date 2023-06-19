@@ -15,6 +15,10 @@ output "oke_endpoint_subnet_ocid" {
   value = module.oke-quickstart.subnets.oke_k8s_endpoint_subnet.subnet_id
 }
 
+output "oke_nodes_subnet_ocid" {
+  value = module.oke-quickstart.subnets.oke_nodes_subnet.subnet_id
+}
+
 output "github_access_token_secret_ocid" {
   value = oci_vault_secret.github_access_token_secret.id
 }

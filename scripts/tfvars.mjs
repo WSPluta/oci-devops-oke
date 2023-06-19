@@ -113,6 +113,7 @@ async function devopsTFvars() {
     github_access_token_secret_ocid: githubAccessTokenSecretId,
     oke_cluster_ocid: okeClusterId,
     oke_endpoint_subnet_ocid: okeEndpointSubnetId,
+    oke_nodes_subnet_ocid: okeNodesSubnetId,
     user_auth_token: userAuthToken,
     user_name: userName,
   } = values;
@@ -152,6 +153,7 @@ async function devopsTFvars() {
            | sed 's/ONS_TOPIC_ID/${devopsOnsTopicId}/' \
            | sed 's/OKE_CLUSTER_ID/${okeClusterId}/' \
            | sed 's/OKE_CLUSTER_ENDPOINT_SUBNET/${okeEndpointSubnetId}/' \
+           | sed 's/OKE_CLUSTER_NODES_SUBNET/${okeNodesSubnetId}/' \
            | sed ${replaceCmdEndpointURL} \
            | sed 's/OCIR_USER/${userName}/' \
            | sed ${replaceCmdToken} \

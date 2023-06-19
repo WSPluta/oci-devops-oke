@@ -26,26 +26,35 @@ shell: bash
  
 steps:
   - type: Command
-    name: Print Variables
-    shell: bash
-    timeoutInSeconds: 650
-    command: |
-      echo "OCI_REGION_NAME: ${region}"
-      echo "OCI_OKE_CLUSTER_ID: ${cluster}"
-      echo "OCI_OKE_ENDPOINT: ${endpoint}"
-      echo "OCI_OKE_ENDPOINT_SUBNET_ID: ${subnet}"
-  - type: Command
     name: "Git Clone"
     shell: bash
     timeoutInSeconds: 300
     command: |
-      git version
+      git clone ${github_repo_url}
   - type: Command
     name: "Setup kube config and get nodes"
     shell: bash
     timeoutInSeconds: 600
     command: |
-      oci ce cluster create-kubeconfig --cluster-id ${OCI_OKE_CLUSTER_ID} \
-        --file $HOME/.kube/config --region ${OCI_REGION_NAME} --token-version 2.0.0  \
-        --kube-endpoint ${OCI_OKE_ENDPOINT}
-      kubectl get nodes
+      oci ce cluster create-kubeconfig --cluster-id ${cluster} \
+        --file $HOME/.kube/config --region ${region} --token-version 2.0.0  \
+        --kube-endpoint PUBLIC_ENDPOINT
+  - type: Command
+    name: "Apply kustomization"
+    shell: bash
+    timeoutInSeconds: 600
+    command: |
+      kubectl apply -k ./oci-devops-oke/k8s/overlay/prod
+  - type: Command
+    name: "Wait for Load Balancer (sleep)"
+    shell: bash
+    timeoutInSeconds: 600
+    command: |
+      sleep 60
+  - type: Command
+    name: "Get Load Balancer IP address"
+    shell: bash
+    timeoutInSeconds: 600
+    command: |
+      LB_PUBLIC_IP=$(kubectl get svc ingress-nginx-controller -n ingress-nginx --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
+      echo "http://$LB_PUBLIC_IP/"

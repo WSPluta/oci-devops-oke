@@ -6,7 +6,7 @@ resource "oci_identity_dynamic_group" "devops_dynamic_group" {
   provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "DevOps Dynamic Group for ${random_string.deploy_id.result}"
-  matching_rule  = "ANY { ALL { resource.type = 'instance-family', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsdeploypipeline', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsbuildpipeline', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsrepository', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsconnection', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopstrigger', resource.compartment.id = '${var.compartment_ocid}' }}"
+  matching_rule  = "ANY { ALL { resource.type = 'instance-family', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsdeploypipeline', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsbuildpipeline', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsrepository', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsconnection', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsrepository', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopsdeployment', resource.compartment.id = '${var.compartment_ocid}'}, ALL { resource.type = 'devopstrigger', resource.compartment.id = '${var.compartment_ocid}' }}"
   name           = local.dynamic_group_name
 }
 
@@ -28,6 +28,8 @@ resource "oci_identity_policy" "devops_policy_in_compartment" {
   name           = "devops_policies_${random_string.deploy_id.result}"
   description    = "Allow dynamic group to manage devops for ${random_string.deploy_id.result}"
   statements = [
+    "allow dynamic-group ${local.dynamic_group_name} to use virtual-network-family in compartment id ${var.compartment_ocid}",
+    "allow dynamic-group ${local.dynamic_group_name} to use instance-agent-command-execution-family in compartment id ${var.compartment_ocid}",
     "allow dynamic-group ${local.dynamic_group_name} to manage devops-repository in compartment id ${var.compartment_ocid}",
     "allow dynamic-group ${local.dynamic_group_name} to manage devops-connection in compartment id ${var.compartment_ocid}",
     "allow dynamic-group ${local.dynamic_group_name} to manage cluster in compartment id ${var.compartment_ocid}",

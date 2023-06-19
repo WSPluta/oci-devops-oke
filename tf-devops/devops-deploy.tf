@@ -15,8 +15,18 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline" {
       description   = "Kubernetes Cluster Endpoint"
     }
     items {
+      name          = "github_repo_url"
+      default_value = var.github_repo_url
+      description   = "GitHub Repo URL"
+    }
+    items {
       name          = "subnet"
       default_value = var.oke_cluster_endpoint_subnet_ocid
+      description   = "Kubernetes Cluster Endpoint Subnet ID"
+    }
+    items {
+      name          = "nodes_subnet"
+      default_value = var.oke_cluster_nodes_subnet_ocid
       description   = "Kubernetes Cluster Endpoint Subnet ID"
     }
     items {
@@ -36,13 +46,13 @@ resource "oci_devops_deploy_artifact" "kustomize_command_spec" {
   deploy_artifact_source {
     deploy_artifact_path        = "commad_spec.yaml"
     deploy_artifact_source_type = "GENERIC_ARTIFACT"
-    deploy_artifact_version     = "$${BUILDRUN_HASH}"
+    deploy_artifact_version     = "0.1"
     repository_id               = oci_artifacts_repository.command_spec_artifact_repo.id
   }
 }
 
 resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
-  command_spec_deploy_artifact_id = oci_devops_deploy_artifact.kustomize_command_spec.id
+  command_spec_deploy_artifact_id = oci_devops_deploy_artifact.command_spec_deploy.id
   deploy_pipeline_id              = oci_devops_deploy_pipeline.deploy_pipeline.id
   deploy_stage_type               = "SHELL"
   display_name                    = "Deploy with Kustomize"
@@ -53,13 +63,12 @@ resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
     shape_name            = "CI.Standard.E4.Flex"
 
     network_channel {
-      network_channel_type = "SERVICE_VNIC_CHANNEL"
-      nsg_ids              = []
-      subnet_id            = var.oke_cluster_endpoint_subnet_ocid
+      network_channel_type = "SERVICE_VNIC_CHANNEL" // "PRIVATE_ENDPOINT_CHANNEL"
+      subnet_id            = var.oke_cluster_nodes_subnet_ocid
     }
 
     shape_config {
-      memory_in_gbs = 1
+      memory_in_gbs = 8
       ocpus         = 1
     }
   }
@@ -82,15 +91,13 @@ resource "oci_artifacts_repository" "command_spec_artifact_repo" {
 
 resource "oci_devops_deploy_artifact" "command_spec_deploy" {
   argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
-  deploy_artifact_type       = "DEPLOYMENT_SPEC"
+  deploy_artifact_type       = "COMMAND_SPEC" // DEPLOYMENT_SPEC, DOCKER_IMAGE, GENERIC_FILE, JOB_SPEC, KUBERNETES_MANIFEST
   display_name               = "commnad spec deploy"
   project_id                 = oci_devops_project.devops_project.id
 
   deploy_artifact_source {
-    deploy_artifact_path        = "./command_spec.yaml"
-    deploy_artifact_source_type = "GENERIC_ARTIFACT"
-    deploy_artifact_version     = "$${BUILDRUN_HASH}"
-    repository_id               = oci_artifacts_repository.command_spec_artifact_repo.id
+    deploy_artifact_source_type = "INLINE"
+    base64encoded_content       = templatefile("${path.module}/../command_spec.yaml", { region : "${var.region}", github_repo_url : "${var.github_repo_url}", endpoint : "${var.oke_cluster_endpoint}", subnet : "${var.oke_cluster_endpoint_subnet_ocid}", nodes_subnet : "${var.oke_cluster_nodes_subnet_ocid}", cluster : "${var.oke_cluster_ocid}" })
   }
 
 }

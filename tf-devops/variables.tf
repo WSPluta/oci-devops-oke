@@ -60,3 +60,7 @@ variable "oke_cluster_endpoint" {
 variable "oke_cluster_endpoint_subnet_ocid" {
   type = string
 }
+
+variable "oke_cluster_nodes_subnet_ocid" {
+  type = string
+}
