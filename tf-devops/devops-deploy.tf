@@ -56,14 +56,14 @@ resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
 resource "oci_artifacts_repository" "command_spec_artifact_repo" {
   compartment_id  = var.compartment_ocid
   is_immutable    = true
-  display_name    = "command_spec_artifact_repo"
+  display_name    = "command_spec_artifact_repo_${random_string.deploy_id.result}"
   repository_type = "GENERIC"
 }
 
 resource "oci_devops_deploy_artifact" "command_spec_deploy" {
   argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
   deploy_artifact_type       = "COMMAND_SPEC" // DEPLOYMENT_SPEC, DOCKER_IMAGE, GENERIC_FILE, JOB_SPEC, KUBERNETES_MANIFEST
-  display_name               = "commnad spec deploy"
+  display_name               = "Commnad spec deploy for ${random_string.deploy_id.result}"
   project_id                 = oci_devops_project.devops_project.id
 
   deploy_artifact_source {
