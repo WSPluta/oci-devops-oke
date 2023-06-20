@@ -15,8 +15,8 @@ module "oke-quickstart" {
 
   metrics_server_enabled = false
 
-  # OKE Node Pool 1 arguments
-  node_pool_cni_type_1                 = "FLANNEL_OVERLAY" # Use "OCI_VCN_IP_NATIVE" for VCN Native PODs Network.
+  # OKE Node Pool 1
+  node_pool_cni_type_1                 = "FLANNEL_OVERLAY"
   node_pool_autoscaler_enabled_1       = false
   node_pool_initial_num_worker_nodes_1 = 2
   node_pool_max_num_worker_nodes_1     = 3

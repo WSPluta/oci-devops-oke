@@ -96,11 +96,6 @@ async function devopsTFvars() {
   const { stdout } = await $`terraform output -json`;
   const terraformOutput = JSON.parse(stdout);
 
-  const { stdout: endpointStdout } =
-    await $`terraform output -raw kubeconfig | grep server | awk '{print $2}'`;
-  const endpointUrl = endpointStdout.trim();
-  console.log(`endpointUrl: ${endpointUrl}`);
-
   const values = {};
   for (const [key, content] of Object.entries(terraformOutput)) {
     values[key] = content.value;
@@ -112,7 +107,6 @@ async function devopsTFvars() {
     devops_ons_topic_ocid: devopsOnsTopicId,
     github_access_token_secret_ocid: githubAccessTokenSecretId,
     oke_cluster_ocid: okeClusterId,
-    oke_endpoint_subnet_ocid: okeEndpointSubnetId,
     oke_nodes_subnet_ocid: okeNodesSubnetId,
     user_auth_token: userAuthToken,
     user_name: userName,
@@ -133,9 +127,6 @@ async function devopsTFvars() {
     "GitHub User"
   );
 
-  const endpointUrlEscaped = endpointUrl.replaceAll("/", "\\/");
-  const replaceCmdEndpointURL = `s/OKE_ENDPOINT/${endpointUrlEscaped}/`;
-
   const githubURLEscaped = githubURL.replaceAll("/", "\\/");
   const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
@@ -152,9 +143,7 @@ async function devopsTFvars() {
            | sed 's/REGION_KEY/${regionKey}/' \
            | sed 's/ONS_TOPIC_ID/${devopsOnsTopicId}/' \
            | sed 's/OKE_CLUSTER_ID/${okeClusterId}/' \
-           | sed 's/OKE_CLUSTER_ENDPOINT_SUBNET/${okeEndpointSubnetId}/' \
            | sed 's/OKE_CLUSTER_NODES_SUBNET/${okeNodesSubnetId}/' \
-           | sed ${replaceCmdEndpointURL} \
            | sed 's/OCIR_USER/${userName}/' \
            | sed ${replaceCmdToken} \
            | sed 's/SECRET_OCID/${githubAccessTokenSecretId}/' \

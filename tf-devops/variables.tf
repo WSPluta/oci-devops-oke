@@ -40,24 +40,11 @@ variable "ocir_user" {
   type = string
 }
 
-# TODO delete me
-variable "ocir_user_token" {
-  type = string
-}
-
 variable "devops_ons_topic_ocid" {
   type = string
 }
 
 variable "oke_cluster_ocid" {
-  type = string
-}
-
-variable "oke_cluster_endpoint" {
-  type = string
-}
-
-variable "oke_cluster_endpoint_subnet_ocid" {
   type = string
 }
 

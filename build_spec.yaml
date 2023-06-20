@@ -1,6 +1,5 @@
 version: 0.1             
 component: build
-# runAs: root
 timeoutInSeconds: 1000
 failImmediatelyOnError: true
 shell: bash
@@ -13,16 +12,13 @@ env:
 
 steps:
   - type: Command
-    name: "Install jq"
+    name: "Install libraries"
     command: |
       yum update -y
       yum install jq -y
   - type: Command
     name: "Set Environment"
     command: |
-      node --version
-      npm --version
-      npx --version
       npx zx scripts/setenv.mjs
   - type: Command
     name: "Print .env.json"
@@ -50,9 +46,6 @@ outputArtifacts:
   - name: auth_server
     type: DOCKER_IMAGE
     location: auth-server:${AUTH_VERSION}
-  - name: deploy_command_spec
-    type: BINARY
-    location: ${OCI_PRIMARY_SOURCE_DIR}/command_spec.yaml
-  - name: hello_deployment_yaml
-    type: BINARY
-    location: ${OCI_PRIMARY_SOURCE_DIR}/k8s/hello-server/hello-server.yaml
+  # - name: hello_deployment_yaml
+  #   type: BINARY
+  #   location: ${OCI_PRIMARY_SOURCE_DIR}/k8s/hello-server/hello-server.yaml

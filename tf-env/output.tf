@@ -11,10 +11,6 @@ output "oke_cluster_ocid" {
   value = module.oke-quickstart.oke_cluster_ocid
 }
 
-output "oke_endpoint_subnet_ocid" {
-  value = module.oke-quickstart.subnets.oke_k8s_endpoint_subnet.subnet_id
-}
-
 output "oke_nodes_subnet_ocid" {
   value = module.oke-quickstart.subnets.oke_nodes_subnet.subnet_id
 }
