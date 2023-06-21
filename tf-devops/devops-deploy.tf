@@ -23,10 +23,10 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline" {
 }
 
 resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
-  command_spec_deploy_artifact_id = oci_devops_deploy_artifact.command_spec_deploy.id
-  deploy_pipeline_id              = oci_devops_deploy_pipeline.deploy_pipeline.id
   deploy_stage_type               = "SHELL"
   display_name                    = "Deploy with Kustomize"
+  command_spec_deploy_artifact_id = oci_devops_deploy_artifact.command_spec_deploy.id
+  deploy_pipeline_id              = oci_devops_deploy_pipeline.deploy_pipeline.id
 
   container_config {
     availability_domain   = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -34,7 +34,7 @@ resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
     shape_name            = "CI.Standard.E4.Flex"
 
     network_channel {
-      network_channel_type = "SERVICE_VNIC_CHANNEL" // "PRIVATE_ENDPOINT_CHANNEL"
+      network_channel_type = "SERVICE_VNIC_CHANNEL"
       subnet_id            = var.oke_cluster_nodes_subnet_ocid
     }
 
@@ -53,16 +53,9 @@ resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
   timeouts {}
 }
 
-resource "oci_artifacts_repository" "command_spec_artifact_repo" {
-  compartment_id  = var.compartment_ocid
-  is_immutable    = true
-  display_name    = "command_spec_artifact_repo_${random_string.deploy_id.result}"
-  repository_type = "GENERIC"
-}
-
 resource "oci_devops_deploy_artifact" "command_spec_deploy" {
   argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
-  deploy_artifact_type       = "COMMAND_SPEC" // DEPLOYMENT_SPEC, DOCKER_IMAGE, GENERIC_FILE, JOB_SPEC, KUBERNETES_MANIFEST
+  deploy_artifact_type       = "COMMAND_SPEC"
   display_name               = "Commnad spec deploy for ${random_string.deploy_id.result}"
   project_id                 = oci_devops_project.devops_project.id
 

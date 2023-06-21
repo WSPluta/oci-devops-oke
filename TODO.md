@@ -1,10 +1,13 @@
 # TODO list
 
+- Versioning
 - Trigger
-- Native deployment
-- Rollback
 
-Error on clean up `tf-env`:
+---
+
+## Errors to investigate
+
+Error on `terraform destroy` on `tf-env`:
 ```
 Error: Unsupported attribute
 │ 

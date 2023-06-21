@@ -2,16 +2,19 @@ resource "oci_devops_build_pipeline" "build_pipeline" {
   project_id = oci_devops_project.devops_project.id
 
   build_pipeline_parameters {
+    # Not used, remove
     items {
       name          = "OCI_REGION"
       default_value = var.region
       description   = "OCI Region name"
     }
+    # Not used, remove
     items {
       name          = "OCI_TENANCY"
       default_value = var.tenancy_ocid
       description   = "OCI Tenanci OCID"
     }
+    # Not used, remove
     items {
       name          = "OCI_OCIR_USER"
       default_value = var.ocir_user
@@ -26,11 +29,13 @@ resource "oci_devops_build_pipeline" "build_pipeline" {
 
 resource "oci_devops_build_pipeline_stage" "build_github_stage" {
   build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
+
   build_pipeline_stage_predecessor_collection {
     items {
       id = oci_devops_build_pipeline.build_pipeline.id
     }
   }
+
   build_pipeline_stage_type = "BUILD"
 
   description                        = "Build Services from GitHub"
@@ -38,7 +43,7 @@ resource "oci_devops_build_pipeline_stage" "build_github_stage" {
   build_spec_file                    = "build_spec.yaml"
   image                              = "OL7_X86_64_STANDARD_10"
   primary_build_source               = "github_build_source"
-  stage_execution_timeout_in_seconds = "600"
+  stage_execution_timeout_in_seconds = "900"
   build_runner_shape_config {
     build_runner_type = "CUSTOM"
     memory_in_gbs     = 4
@@ -56,8 +61,6 @@ resource "oci_devops_build_pipeline_stage" "build_github_stage" {
 }
 
 resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
-
-  depends_on = [oci_devops_build_pipeline_stage.build_github_stage]
 
   build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
   build_pipeline_stage_predecessor_collection {
@@ -91,15 +94,9 @@ resource "oci_devops_deploy_artifact" "hello_server_image" {
   argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
 
   deploy_artifact_source {
-    #Required
     deploy_artifact_source_type = "OCIR"
-    deploy_artifact_version     = "1.0.0"
-    deploy_artifact_path        = "hello_server"
 
-    #Optional
-    image_uri    = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/hello_server"
-    image_digest = " "
-    #image_digest  = oci_devops_build_run.test_build_run.build_outputs[0].delivered_artifacts[0].items[0].delivered_artifact_hash
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/hello_server:$${HELLO_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 
@@ -114,15 +111,9 @@ resource "oci_devops_deploy_artifact" "auth_server_image" {
   argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
 
   deploy_artifact_source {
-    #Required
     deploy_artifact_source_type = "OCIR"
-    deploy_artifact_version     = "1.0.0"
-    deploy_artifact_path        = "auth_server"
 
-    #Optional
-    image_uri    = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/auth_server"
-    image_digest = " "
-    #image_digest  = oci_devops_build_run.test_build_run.build_outputs[0].delivered_artifacts[0].items[0].delivered_artifact_hash
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/auth_server:$${AUTH_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 
