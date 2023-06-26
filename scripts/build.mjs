@@ -7,11 +7,7 @@ import {
   tagImage,
   pushImage,
 } from "./lib/container.mjs";
-import {
-  buildJarGradle,
-  cleanGradle,
-  getVersionGradle,
-} from "./lib/gradle.mjs";
+import { getVersionGradle } from "./lib/gradle.mjs";
 
 const shell = process.env.SHELL | "/bin/zsh";
 $.shell = shell;
@@ -72,8 +68,6 @@ async function releaseNpm(service, push) {
 
 async function releaseGradle(service, push) {
   await cd(`src/${service}`);
-  await cleanGradle();
-  await buildJarGradle();
   const currentVersion = await getVersionGradle();
   await buildImage(`${service}`, currentVersion);
   const localImage = `${service}:${currentVersion}`;
