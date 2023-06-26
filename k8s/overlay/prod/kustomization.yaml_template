@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../hello-server
+- ../../auth-server
+- ../../japp-server
+- ../../ingress-controller
+
+images:
+- name: hello-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/hello-server
+  newTag: HELLO_VERSION
+- name: auth-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/auth-server
+  newTag: AUTH_VERSION
+- name: japp-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/japp-server
+  newTag: JAPP_VERSION

@@ -63,3 +63,24 @@ resource "oci_devops_repository" "github_mirrored_repository" {
     }
   }
 }
+
+# resource "oci_devops_trigger" "push_trigger" {
+#     actions {
+#         build_pipeline_id = oci_devops_build_pipeline.build_pipeline.id
+#         type = "TRIGGER_BUILD_PIPELINE"
+
+#         filter {
+#             trigger_source = "GITHUB" // "DEVOPS_CODE_REPOSITORY"
+
+#             events = "PUSH"
+#             include {
+#                 repository_name = oci_devops_repository.github_mirrored_repository.name
+#             }
+#         }
+#     }
+#     project_id = oci_devops_project.devops_project.id
+#     trigger_source = "GITHUB" // "DEVOPS_CODE_REPOSITORY"
+
+#     description = "devops_github_trigger_${random_string.deploy_id.result}"
+#     display_name = "DevOps GitHub Trigger for ${random_string.deploy_id.result}"
+# }

@@ -174,19 +174,19 @@ cd ..
 ## Local deployment
 
 ```bash
-npx npx zx scripts/setenv.mjs
+npx zx scripts/setenv.mjs
 ```
 
 ## Build
 
 ```bash
-npx npx zx scripts/build.mjs hello-server
+npx zx scripts/build.mjs hello-server
 ```
 
 ## Set Up Deployment
 
 ```bash
-npx npx zx scripts/setup.mjs
+npx zx scripts/setup.mjs
 ```
 
 ## Deployment Pipeline

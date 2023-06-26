@@ -16,7 +16,7 @@ spec:
         app: hello-server
     spec:
       containers:
-      - image: fra.ocir.io/fruktknlrefu/oci_devops_oke/hello-server:1.0.0
+      - image: hello-server
         name: hello-server
         readinessProbe:
             tcpSocket:

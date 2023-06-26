@@ -1,0 +1,3 @@
+resources:
+  - japp-server.yaml
+  - japp-server-service.yaml

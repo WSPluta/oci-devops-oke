@@ -28,3 +28,18 @@ resource "oci_vault_secret" "github_access_token_secret" {
   secret_name = "github_access_token_secret_devops_${random_string.deploy_id.result}"
   description = "GitHub Access Token Secret Devops for ${random_string.deploy_id.result}"
 }
+
+resource "oci_vault_secret" "web_auth_token" {
+  compartment_id = var.compartment_ocid
+  secret_content {
+    name         = "web_auth_token_${random_string.deploy_id.result}"
+    content      = base64encode(random_string.web_auth_token.result)
+    content_type = "BASE64"
+    stage        = "CURRENT"
+  }
+  vault_id = oci_kms_vault.vault_devops.id
+  key_id   = oci_kms_key.key_devops.id
+
+  secret_name = "web_auth_token_${random_string.deploy_id.result}"
+  description = "Web Auth Token for ${random_string.deploy_id.result}"
+}

@@ -1,6 +1,6 @@
 version: 0.1             
 component: build
-timeoutInSeconds: 1000
+timeoutInSeconds: 1200
 failImmediatelyOnError: true
 shell: bash
 
@@ -8,6 +8,7 @@ env:
   exportedVariables:
     - HELLO_VERSION
     - AUTH_VERSION
+    - JAPP_VERSION
 
 steps:
   - type: Command
@@ -15,6 +16,12 @@ steps:
     command: |
       yum update -y
       yum install jq -y
+  - type: Command
+    name: "Try dependencies"
+    command: |
+      wget --version
+      unzip -v
+      gradle -v
   - type: Command
     name: "Set Environment"
     command: |
@@ -24,6 +31,7 @@ steps:
     command: |
       export HELLO_VERSION=$(cat src/hello-server/package.json| jq .version | tr -d '/"')
       export AUTH_VERSION=$(cat src/auth-server/package.json| jq .version | tr -d '/"')
+      export JAPP_VERSION=$(grep "version = " src/japp-server/build.gradle | cut -d "'" -f2)
   - type: Command
     name: "Build hello-server"
     command: |
@@ -32,6 +40,10 @@ steps:
     name: "Build auth-server"
     command: |
       npx zx scripts/build.mjs auth-server
+  - type: Command
+    name: "Build japp-server"
+    command: |
+      npx zx scripts/build.mjs japp-server
 
 outputArtifacts:
   - name: hello_server
@@ -40,3 +52,6 @@ outputArtifacts:
   - name: auth_server
     type: DOCKER_IMAGE
     location: auth-server:${AUTH_VERSION}
+  - name: japp_server
+    type: DOCKER_IMAGE
+    location: japp-server:${JAPP_VERSION}

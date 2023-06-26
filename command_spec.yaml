@@ -20,6 +20,18 @@ steps:
         --file $HOME/.kube/config --region ${region} --token-version 2.0.0  \
         --kube-endpoint PUBLIC_ENDPOINT
   - type: Command
+    name: "Custom Kustomize with versions"
+    shell: bash
+    timeoutInSeconds: 3000
+    command: |
+      npx zx ./oci-devops-oke/scripts/kustom.mjs
+  - type: Command
+    name: "Set Up Kustomize"
+    shell: bash
+    timeoutInSeconds: 3000
+    command: |
+      npx zx ./oci-devops-oke/scripts/setup.mjs
+  - type: Command
     name: "Apply kustomization"
     shell: bash
     timeoutInSeconds: 3000

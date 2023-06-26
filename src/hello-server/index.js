@@ -25,6 +25,10 @@ logger.info(
   `Auth Server: ${AUTH_SERVER_SERVICE_HOST}:${AUTH_SERVER_SERVICE_PORT}`
 );
 
+const JAPP_SERVICE_HOST = process.env.JAPP_SERVICE_HOST;
+const JAPP_SERVICE_PORT = process.env.JAPP_SERVICE_PORT;
+logger.info(`Auth Server: ${JAPP_SERVICE_HOST}:${JAPP_SERVICE_PORT}`);
+
 logger.info(`Version ${jsonPackage.version}`);
 
 const serverId = short.generate().slice(0, 3);
@@ -37,6 +41,10 @@ app.use(express.json());
 app.get("/", async (req, res) => {
   logger.info(`GET /`);
   const authorization = req.headers.authorization;
+  if (!authorization) {
+    res.status(400).json({ error: true, message: "No Authorization" });
+    return;
+  }
   const [_, token] = authorization.split(" ");
   const responseAuth = await fetch(
     `http://${AUTH_SERVER_SERVICE_HOST}:${AUTH_SERVER_SERVICE_PORT}/auth`,
@@ -47,12 +55,21 @@ app.get("/", async (req, res) => {
     }
   );
   const jsonAuth = await responseAuth.json();
+  const responseJapp = await fetch(
+    `http://${JAPP_SERVICE_HOST}:${JAPP_SERVICE_PORT}/japp`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  const jsonJapp = await responseJapp.json();
   res.send({
     id: serverId,
     name: jsonPackage.name,
     version: jsonPackage.version,
     message: "hello",
     auth: jsonAuth,
+    japp: jsonJapp,
   });
 });
 

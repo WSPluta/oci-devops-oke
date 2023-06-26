@@ -7,6 +7,11 @@ import {
   tagImage,
   pushImage,
 } from "./lib/container.mjs";
+import {
+  buildJarGradle,
+  cleanGradle,
+  getVersionGradle,
+} from "./lib/gradle.mjs";
 
 const shell = process.env.SHELL | "/bin/zsh";
 $.shell = shell;
@@ -32,9 +37,15 @@ if (action === "auth-server") {
   process.exit(0);
 }
 
+if (action === "japp-server") {
+  await releaseGradle("japp-server", push);
+  process.exit(0);
+}
+
 if (a || action === "all") {
   await releaseNpm("hello-server", push);
   await releaseNpm("auth-server", push);
+  await releaseGradle("japp-server", push);
   process.exit(0);
 }
 
@@ -43,6 +54,7 @@ console.log("\tnpx zx scripts/build.mjs all");
 console.log("\tnpx zx scripts/build.mjs -a");
 console.log("\tnpx zx scripts/build.mjs hello-server");
 console.log("\tnpx zx scripts/build.mjs auth-server");
+console.log("\tnpx zx scripts/build.mjs japp-server");
 
 async function releaseNpm(service, push) {
   await cd(`src/${service}`);
@@ -56,4 +68,20 @@ async function releaseNpm(service, push) {
     console.log(`Released: ${chalk.yellow(remoteImage)}`);
   }
   await cd("../..");
+}
+
+async function releaseGradle(service, push) {
+  await cd(`src/${service}`);
+  await cleanGradle();
+  await buildJarGradle();
+  const currentVersion = await getVersionGradle();
+  await buildImage(`${service}`, currentVersion);
+  const localImage = `${service}:${currentVersion}`;
+  const remoteImage = `${containerRegistryURL}/${namespace}/${project}/${service}:${currentVersion}`;
+  await tagImage(localImage, remoteImage);
+  if (push) {
+    await pushImage(remoteImage);
+    console.log(`Released: ${chalk.yellow(remoteImage)}`);
+  }
+  await cd("..");
 }

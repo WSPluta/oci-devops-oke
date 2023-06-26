@@ -1,5 +1,5 @@
 module "oke-quickstart" {
-  source = "github.com/oracle-quickstart/terraform-oci-oke-quickstart?ref=0.9.1"
+  source = "github.com/oracle-quickstart/terraform-oci-oke-quickstart?ref=0.9.2"
 
 
   providers = {
