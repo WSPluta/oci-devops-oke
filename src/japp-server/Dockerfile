@@ -9,6 +9,8 @@ FROM eclipse-temurin:19
 VOLUME /tmp
 RUN mkdir /app
 
-COPY --from=build /opt/src/build/libs/*.jar /app/japp.jar
+RUN ls /opt/src/build
+COPY --from=build /opt/src/build/libs/japp*.jar /tmp/
+RUN ls /tmp/*.jar | grep -v plain | xargs -I '{}' mv {} /app/japp.jar
 
 ENTRYPOINT ["java","-jar","/app/japp.jar"]
