@@ -1,5 +1,7 @@
 # OCI DevOps Service with Kubernetes
 
+[LiveLabs: Automate your deployment with OCI DevOps, Save The Wildlife](https://vmleon.github.io/oci-devops-oke/hols/workshops/devops/index.html)
+
 > Requirements: GitHub Account
 
 ## GitHub Token and Clone (Total: 15 min)
