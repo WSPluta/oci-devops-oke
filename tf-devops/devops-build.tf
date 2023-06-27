@@ -122,3 +122,20 @@ resource "oci_devops_deploy_artifact" "auth_server_image" {
 
   display_name = "Container Image Auth Server"
 }
+
+resource "oci_devops_deploy_artifact" "japp_server_image" {
+
+  argument_substitution_mode = "SUBSTITUTE_PLACEHOLDERS"
+
+  deploy_artifact_source {
+    deploy_artifact_source_type = "OCIR"
+
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/japp_server:$${HELLO_VERSION}"
+    repository_id = oci_devops_repository.github_mirrored_repository.id
+  }
+
+  deploy_artifact_type = "DOCKER_IMAGE"
+  project_id           = oci_devops_project.devops_project.id
+
+  display_name = "Container Image Japp Server"
+}
