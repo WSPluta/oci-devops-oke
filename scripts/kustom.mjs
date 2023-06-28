@@ -12,6 +12,7 @@ await createKustomizationYaml(regionKey, namespace);
 
 async function createKustomizationYaml(regionKey, namespace) {
   const pwdOutput = (await $`pwd`).stdout.trim();
+  console.log(pwdOutput);
   await cd("../src/hello-server");
   const helloVersion = await getNpmVersion();
   await cd("../src/auth-server");
