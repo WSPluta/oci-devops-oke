@@ -45,13 +45,9 @@ steps:
     shell: bash
     timeoutInSeconds: 3000
     command: |
-      npx zx ./oci-devops-oke/scripts/kustom.mjs
-  # - type: Command
-  #   name: "Set Up Kustomize"
-  #   shell: bash
-  #   timeoutInSeconds: 3000
-  #   command: |
-  #     npx zx ./oci-devops-oke/scripts/setup.mjs
+      echo $(pwd)
+      cd /workspace/oci-devops-oke
+      npx zx scripts/kustom.mjs
   - type: Command
     name: "Apply kustomization"
     shell: bash
