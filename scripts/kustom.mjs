@@ -13,15 +13,13 @@ await createKustomizationYaml(regionKey, namespace);
 async function createKustomizationYaml(regionKey, namespace) {
   const pwdOutput = (await $`pwd`).stdout.trim();
   console.log(pwdOutput);
-  await cd("./src/hello-server");
+  await cd(`${pwdOutput}/src/hello-server`);
   const helloVersion = await getNpmVersion();
-  await cd("..");
-  await cd("./src/auth-server");
+  await cd(`${pwdOutput}/src/auth-server`);
   const authVersion = await getNpmVersion();
-  await cd("..");
-  await cd("./src/japp-server");
+  await cd(`${pwdOutput}/src/japp-server`);
   const jappVersion = await getVersionGradle();
-  await cd("..");
+  await cd(pwdOutput);
 
   await cd("./k8s/overlay/prod");
   try {
