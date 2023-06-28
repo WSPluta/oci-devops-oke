@@ -35,7 +35,7 @@ resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
 
     network_channel {
       network_channel_type = "SERVICE_VNIC_CHANNEL"
-      subnet_id            = var.oke_cluster_nodes_subnet_ocid
+      subnet_id            = oci_core_subnet.publicsubnet.id
     }
 
     shape_config {
