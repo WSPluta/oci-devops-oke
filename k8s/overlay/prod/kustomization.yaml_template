@@ -8,11 +8,11 @@ resources:
 
 images:
 - name: hello-server
-  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/hello-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci-devops-oke/hello-server
   newTag: HELLO_VERSION
 - name: auth-server
-  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/auth-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci-devops-oke/auth-server
   newTag: AUTH_VERSION
 - name: japp-server
-  newName: REGION_KEY.ocir.io/NAMESPACE/oci_devops_oke/japp-server
+  newName: REGION_KEY.ocir.io/NAMESPACE/oci-devops-oke/japp-server
   newTag: JAPP_VERSION

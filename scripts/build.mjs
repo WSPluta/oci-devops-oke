@@ -21,7 +21,7 @@ const { containerRegistryURL, namespace } = properties;
 const { a, _ } = argv;
 const [action, push] = _;
 
-const project = "oci_devops_oke";
+const project = "oci-devops-oke";
 
 if (action === "hello-server") {
   await releaseNpm("hello-server", push);

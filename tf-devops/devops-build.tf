@@ -80,6 +80,10 @@ resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
       artifact_id   = oci_devops_deploy_artifact.auth_server_image.id
       artifact_name = "auth_server"
     }
+    items {
+      artifact_id   = oci_devops_deploy_artifact.japp_server_image.id
+      artifact_name = "japp_server"
+    }
   }
   display_name = "Deliver Artifacts Stage"
 }
@@ -96,7 +100,7 @@ resource "oci_devops_deploy_artifact" "hello_server_image" {
   deploy_artifact_source {
     deploy_artifact_source_type = "OCIR"
 
-    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/hello_server:$${HELLO_VERSION}"
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/hello-server:$${HELLO_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 
@@ -113,7 +117,7 @@ resource "oci_devops_deploy_artifact" "auth_server_image" {
   deploy_artifact_source {
     deploy_artifact_source_type = "OCIR"
 
-    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/auth_server:$${AUTH_VERSION}"
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/auth-server:$${AUTH_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 
@@ -130,7 +134,7 @@ resource "oci_devops_deploy_artifact" "japp_server_image" {
   deploy_artifact_source {
     deploy_artifact_source_type = "OCIR"
 
-    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/japp_server:$${HELLO_VERSION}"
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/japp-server:$${HELLO_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 

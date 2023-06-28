@@ -6,8 +6,7 @@ shell: bash
 
 env:
   variables:
-    NODE_VERSION: v18.16.1
-    DISTRO: linux-x64
+    regionKey: ${region_key}
 
 steps:
   - type: Command
@@ -17,15 +16,6 @@ steps:
     command: |
       yum --disablerepo=ol7_oci_included install -y oracle-nodejs-release-el7 oracle-release-el7
       yum --disablerepo=ol7_oci_included install -y nodejs
-      node -v
-  - type: Command
-    name: "Node version"
-    shell: bash
-    timeoutInSeconds: 3000
-    command: |
-      node -v
-      npm version
-      npx -v
   - type: Command
     name: "Git Clone"
     shell: bash
@@ -33,7 +23,7 @@ steps:
     command: |
       git clone ${github_repo_url}
   - type: Command
-    name: "Setup kube config and get nodes"
+    name: "Setup kube config"
     shell: bash
     timeoutInSeconds: 3000
     command: |
@@ -45,9 +35,8 @@ steps:
     shell: bash
     timeoutInSeconds: 3000
     command: |
-      echo $(pwd)
       cd /workspace/oci-devops-oke
-      npx zx scripts/kustom.mjs
+      npx zx scripts/kustom.mjs $regionKey
   - type: Command
     name: "Apply kustomization"
     shell: bash
