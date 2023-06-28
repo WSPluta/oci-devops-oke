@@ -13,11 +13,13 @@ await createKustomizationYaml(regionKey, namespace);
 async function createKustomizationYaml(regionKey, namespace) {
   const pwdOutput = (await $`pwd`).stdout.trim();
   console.log(pwdOutput);
-  await cd("../src/hello-server");
+  await cd("./src/hello-server");
   const helloVersion = await getNpmVersion();
-  await cd("../src/auth-server");
+  await cd("..");
+  await cd("./src/auth-server");
   const authVersion = await getNpmVersion();
-  await cd("../src/japp-server");
+  await cd("..");
+  await cd("./src/japp-server");
   const jappVersion = await getVersionGradle();
   await cd("..");
 
