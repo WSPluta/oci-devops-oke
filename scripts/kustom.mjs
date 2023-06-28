@@ -1,12 +1,23 @@
 import { getVersionGradle } from "./lib/gradle.mjs";
 import { getNpmVersion } from "./lib/npm.mjs";
-import { exitWithError, readEnvJson } from "./lib/utils.mjs";
+import { getNamespace } from "./lib/oci.mjs";
+import { exitWithError } from "./lib/utils.mjs";
 
 const shell = process.env.SHELL | "/bin/zsh";
 $.shell = shell;
 $.verbose = false;
 
-const { regionKey, namespace } = await readEnvJson();
+const { _ } = argv;
+const [key] = _;
+
+const regionKey = key;
+console.log(`regionKey: ${regionKey}`);
+const resourcePrincipalRegion = (
+  await $`echo $OCI_RESOURCE_PRINCIPAL_REGION`
+).stdout.trim();
+console.log(`OCI_RESOURCE_PRINCIPAL_REGION: ${resourcePrincipalRegion}`);
+console.log({ key });
+const namespace = await getNamespace();
 
 await createKustomizationYaml(regionKey, namespace);
 
