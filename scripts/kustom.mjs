@@ -11,19 +11,12 @@ const { _ } = argv;
 const [key] = _;
 
 const regionKey = key;
-console.log(`regionKey: ${regionKey}`);
-const resourcePrincipalRegion = (
-  await $`echo $OCI_RESOURCE_PRINCIPAL_REGION`
-).stdout.trim();
-console.log(`OCI_RESOURCE_PRINCIPAL_REGION: ${resourcePrincipalRegion}`);
-console.log({ key });
 const namespace = await getNamespace();
 
 await createKustomizationYaml(regionKey, namespace);
 
 async function createKustomizationYaml(regionKey, namespace) {
   const pwdOutput = (await $`pwd`).stdout.trim();
-  console.log(pwdOutput);
   await cd(`${pwdOutput}/src/hello-server`);
   const helloVersion = await getNpmVersion();
   await cd(`${pwdOutput}/src/auth-server`);

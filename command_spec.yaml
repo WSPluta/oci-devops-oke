@@ -5,10 +5,16 @@ failImmediatelyOnError: true
 shell: bash
 
 env:
-  variables:
-    regionKey: ${region_key}
+  vaultVariables:
+    WEB_AUTH_TOKEN: ${web_auth_token_id}
 
 steps:
+  - type: Command
+    name: "WEB_AUTH_TOKEN"
+    shell: bash
+    timeoutInSeconds: 10
+    command: |
+      echo "WEB_AUTH_TOKEN: $WEB_AUTH_TOKEN"
   - type: Command
     name: "Install nodejs"
     shell: bash
@@ -36,7 +42,17 @@ steps:
     timeoutInSeconds: 3000
     command: |
       cd /workspace/oci-devops-oke
-      npx zx scripts/kustom.mjs $regionKey
+      npx zx scripts/kustom.mjs ${region_key}
+  # - type: Command
+  #   name: "Create OCIR Secret"
+  #   shell: bash
+  #   timeoutInSeconds: 3000
+  #   command: |
+  #     kubectl create secret docker-registry ocir-secret \
+  #       --docker-server=${region_key}.ocir.io \
+  #       --docker-username="${oci_namespace}/${ocir_user}" \
+  #       --docker-password="$AUTH_TOKEN" \
+  #       --docker-email=${ocir_user}
   - type: Command
     name: "Apply kustomization"
     shell: bash
