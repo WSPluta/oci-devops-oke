@@ -18,6 +18,7 @@ spec:
       containers:
       - image: hello-server
         name: hello-server
+        imagePullPolicy: Always
         readinessProbe:
             tcpSocket:
               port: 3000

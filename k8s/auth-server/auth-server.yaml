@@ -18,6 +18,7 @@ spec:
       containers:
       - image: auth-server
         name: auth-server
+        imagePullPolicy: Always
         readinessProbe:
             tcpSocket:
               port: 3000
