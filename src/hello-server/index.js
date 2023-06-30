@@ -25,9 +25,11 @@ logger.info(
   `Auth Server: ${AUTH_SERVER_SERVICE_HOST}:${AUTH_SERVER_SERVICE_PORT}`
 );
 
-const JAPP_SERVICE_HOST = process.env.JAPP_SERVICE_HOST;
-const JAPP_SERVICE_PORT = process.env.JAPP_SERVICE_PORT;
-logger.info(`Auth Server: ${JAPP_SERVICE_HOST}:${JAPP_SERVICE_PORT}`);
+const JAPP_SERVER_SERVICE_HOST = process.env.JAPP_SERVER_SERVICE_HOST;
+const JAPP_SERVER_SERVICE_PORT = process.env.JAPP_SERVER_SERVICE_PORT;
+logger.info(
+  `Japp Server: ${JAPP_SERVER_SERVICE_HOST}:${JAPP_SERVER_SERVICE_PORT}`
+);
 
 logger.info(`Version ${jsonPackage.version}`);
 
@@ -56,7 +58,7 @@ app.get("/", async (req, res) => {
   );
   const jsonAuth = await responseAuth.json();
   const responseJapp = await fetch(
-    `http://${JAPP_SERVICE_HOST}:${JAPP_SERVICE_PORT}/japp`,
+    `http://${JAPP_SERVER_SERVICE_HOST}:${JAPP_SERVER_SERVICE_PORT}/japp`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
