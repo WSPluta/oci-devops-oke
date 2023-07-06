@@ -36,7 +36,8 @@ steps:
     timeoutInSeconds: 300
     command: |
       cd /workspace/oci-devops-oke
-      npx zx scripts/kustom.mjs ${region_key}
+      web_auth_token=$(oci secrets secret-bundle get --secret-id ${web_auth_token_id} --query 'data."secret-bundle-content".content' | tr -d '\"' | base64 -d)
+      npx zx scripts/kustom.mjs ${region_key} $web_auth_token
   - type: Command
     name: "Create OCIR Secret"
     shell: bash
@@ -66,5 +67,6 @@ steps:
     shell: bash
     timeoutInSeconds: 100
     command: |
+      web_auth_token=$(oci secrets secret-bundle get --secret-id ${web_auth_token_id} --query 'data."secret-bundle-content".content' | tr -d '\"' | base64 -d)
       LB_PUBLIC_IP=$(kubectl get svc ingress-nginx-controller -n ingress-nginx --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}")
-      echo "curl -s -H \"Authorization: Bearer 123\" http://$LB_PUBLIC_IP/ | jq"
+      echo "curl -s -H \"Authorization: Bearer $web_auth_token\" http://$LB_PUBLIC_IP/ | jq"

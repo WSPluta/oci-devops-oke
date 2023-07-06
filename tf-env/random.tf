@@ -4,6 +4,6 @@ resource "random_string" "deploy_id" {
 }
 
 resource "random_string" "web_auth_token" {
-  length  = 32
+  length  = 12
   special = false
 }
