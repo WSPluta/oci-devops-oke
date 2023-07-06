@@ -16,10 +16,10 @@ steps:
     command: |
       yum update -y
       yum install jq -y
-  - type: Command
-    name: "Set Environment"
-    command: |
-      npx zx scripts/setenv.mjs
+  # - type: Command
+  #   name: "Set Environment"
+  #   command: |
+  #     npx zx scripts/setenv.mjs
   - type: Command
     name: "Set up server versions"
     command: |

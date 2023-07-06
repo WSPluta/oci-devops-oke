@@ -3,7 +3,10 @@ import { exitWithError } from "./utils.mjs";
 
 export async function getRegions() {
   try {
-    const output = (await $`oci iam region-subscription list`).stdout.trim();
+    const tenancyId = await getTenancyId();
+    const output = (
+      await $`oci iam region-subscription list --tenancy-id ${tenancyId}`
+    ).stdout.trim();
     const { data } = JSON.parse(output);
     return data.map((e) => ({
       key: e["region-key"].toLowerCase(),
