@@ -23,8 +23,9 @@ output "compartment" {
   value = data.oci_identity_compartment.compartment.name
 }
 
+// TODO: Getting the user to get the auth token is something to improve
 locals {
-  user = [for each in data.oci_identity_users.users.users : each if each.name == "victor.martin.alvarez@oracle.com"][0]
+  user = [for each in data.oci_identity_users.users.users : each if each.name == var.subscription_email][0]
 }
 
 output "user_ocid" {
