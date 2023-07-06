@@ -3,9 +3,12 @@ import { exitWithError } from "./utils.mjs";
 
 export async function getRegions() {
   try {
-    const output = (await $`oci iam region list`).stdout.trim();
+    const output = (await $`oci iam region-subscription list`).stdout.trim();
     const { data } = JSON.parse(output);
-    return data.map((e) => ({ key: e.key.toLowerCase(), name: e.name }));
+    return data.map((e) => ({
+      key: e["region-key"].toLowerCase(),
+      name: e["region-name"],
+    }));
   } catch (error) {
     exitWithError(`Error: get regions ${error.message}`);
   }

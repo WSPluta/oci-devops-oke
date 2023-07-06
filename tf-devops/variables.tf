@@ -32,7 +32,7 @@ variable "github_user" {
   type = string
 }
 
-variable "github_access_token_secret" {
+variable "github_access_token_secret_id" {
   type = string
 }
 
@@ -48,6 +48,10 @@ variable "oke_cluster_ocid" {
   type = string
 }
 
-variable "oke_cluster_nodes_subnet_ocid" {
+variable "user_auth_token_id" {
+  type = string
+}
+
+variable "web_auth_token_id" {
   type = string
 }

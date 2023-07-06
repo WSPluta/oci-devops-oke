@@ -107,9 +107,9 @@ async function devopsTFvars() {
     devops_ons_topic_ocid: devopsOnsTopicId,
     github_access_token_secret_ocid: githubAccessTokenSecretId,
     oke_cluster_ocid: okeClusterId,
-    oke_nodes_subnet_ocid: okeNodesSubnetId,
-    user_auth_token: userAuthToken,
     user_name: userName,
+    user_auth_token_id: userAuthTokenId,
+    web_auth_token_id: webAuthTokenId,
   } = values;
 
   await cd("..");
@@ -130,10 +130,6 @@ async function devopsTFvars() {
   const githubURLEscaped = githubURL.replaceAll("/", "\\/");
   const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
 
-  // TODO Delete me
-  const tokenEscaped = userAuthToken; //.replaceAll("/", "\\/");
-  const replaceCmdToken = `s/OCIR_AUTH_TOKEN/${tokenEscaped}/`;
-
   try {
     let { exitCode, stderr } =
       await $`sed 's/REGION_NAME/${regionName}/' tf-devops/terraform.tfvars.template \
@@ -143,16 +139,16 @@ async function devopsTFvars() {
            | sed 's/REGION_KEY/${regionKey}/' \
            | sed 's/ONS_TOPIC_ID/${devopsOnsTopicId}/' \
            | sed 's/OKE_CLUSTER_ID/${okeClusterId}/' \
-           | sed 's/OKE_CLUSTER_NODES_SUBNET/${okeNodesSubnetId}/' \
            | sed 's/OCIR_USER/${userName}/' \
-           | sed ${replaceCmdToken} \
-           | sed 's/SECRET_OCID/${githubAccessTokenSecretId}/' \
+           | sed 's/GITHUB_SECRET_OCID/${githubAccessTokenSecretId}/' \
+           | sed 's/USER_AUTH_TOKEN_OCID/${userAuthTokenId}/' \
+           | sed 's/WEB_AUTH_TOKEN_OCID/${webAuthTokenId}/' \
            | sed ${replaceCmdURL} \
            | sed 's/GITHUB_USER/${githubUser}/' > tf-devops/terraform.tfvars`;
     if (exitCode !== 0) {
-      exitWithError(`Error creating tf/terraform.tfvars: ${stderr}`);
+      exitWithError(`Error creating tf-devops/terraform.tfvars: ${stderr}`);
     }
-    console.log(`${chalk.green("tf/terraform.tfvars")} created.`);
+    console.log(`${chalk.green("tf-devops/terraform.tfvars")} created.`);
   } catch (error) {
     exitWithError(error.stderr);
   }

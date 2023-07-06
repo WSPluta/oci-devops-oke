@@ -2,29 +2,6 @@ resource "oci_devops_deploy_pipeline" "deploy_pipeline" {
   project_id   = oci_devops_project.devops_project.id
   display_name = "deploy_pipeline_${random_string.deploy_id.result}"
   description  = "Deploy Pipeline for ${random_string.deploy_id.result}"
-
-  # deploy_pipeline_parameters {
-  #   items {
-  #     name          = "region"
-  #     default_value = var.region
-  #     description   = "Region Name"
-  #   }
-  #   items {
-  #     name          = "region_key"
-  #     default_value = var.region_key
-  #     description   = "Region Key"
-  #   }
-  #   items {
-  #     name          = "github_repo_url"
-  #     default_value = var.github_repo_url
-  #     description   = "GitHub Repo URL"
-  #   }
-  #   items {
-  #     name          = "cluster"
-  #     default_value = var.oke_cluster_ocid
-  #     description   = "Kubernetes Cluster ID"
-  #   }
-  # }
 }
 
 resource "oci_devops_deploy_stage" "shellstage_ci_deploy_stage" {
@@ -66,7 +43,7 @@ resource "oci_devops_deploy_artifact" "command_spec_deploy" {
 
   deploy_artifact_source {
     deploy_artifact_source_type = "INLINE"
-    base64encoded_content       = templatefile("${path.module}/../command_spec.yaml", { region : "${var.region}", region_key : "${var.region_key}", github_repo_url : "${var.github_repo_url}", cluster : "${var.oke_cluster_ocid}" })
+    base64encoded_content       = templatefile("${path.module}/../command_spec.yaml", { region : "${var.region}", region_key : "${var.region_key}", github_repo_url : "${var.github_repo_url}", cluster : "${var.oke_cluster_ocid}", oci_namespace : "${var.namespace}", ocir_user : "${var.ocir_user}", user_auth_token_id : "${var.user_auth_token_id}", web_auth_token_id : "${var.web_auth_token_id}" })
   }
 
 }

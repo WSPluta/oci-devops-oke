@@ -143,6 +143,12 @@ XXX
 
 ## Clean Up
 
+Configure `kubectl`, and delete load balancer.
+
+```bash
+kubectl delete ns ingress-nginx
+```
+
 Destroy DevOps Infrastructure.
 
 ```bash
@@ -206,5 +212,5 @@ kubectl get svc -n ingress-nginx
 ```
 
 ```bash
-curl -s -H "Authentication: Bearer 123" http://LOAD_BALANCER_PUBLIC_IP/ | jq .
+curl -s -H "Authorization: Bearer 123" http://LOAD_BALANCER_PUBLIC_IP/ | jq .
 ```
