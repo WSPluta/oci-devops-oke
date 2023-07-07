@@ -19,11 +19,16 @@ spec:
       - image: auth-server
         name: auth-server
         imagePullPolicy: Always
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
         readinessProbe:
-            tcpSocket:
-              port: 3000
-            initialDelaySeconds: 1
-            periodSeconds: 5
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
         ports:
           - containerPort: 3000
         resources:

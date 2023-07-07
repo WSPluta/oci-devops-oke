@@ -19,11 +19,16 @@ spec:
       - image: japp-server
         name: japp-server
         imagePullPolicy: Always
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
         readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 1
-            periodSeconds: 5
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
         ports:
           - containerPort: 8080
         resources:
