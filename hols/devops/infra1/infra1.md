@@ -23,19 +23,21 @@ Estimated Lab Time: XX minutes
 
 2. During the execution of the script, you will have to answer a few questions.
   
-  ![xxx](images/xxx.png)
+  ![xxx](images/envcomp.png)
 
 3. The first one is the _DevOps Compartment Name_. You just type _**ENTER**_ to select the root compartment. If you are familiar with OCI compartments, then feel free to pick an existing compartment name.
   
-  ![xxx](images/xxx.png)
+  ![xxx](images/envcomp.png)
 
 4. The second one is the _GitHub Token_. You just paste the GitHub access token you copied from the previous task.
   
-  ![xxx](images/xxx.png)
+  ![xxx](images/env.png)
 
 5. The third one is the _Oracle Notification Service (ONS) email_. You just type your email address. This email will get configured as the point of contact for DevOps events.
   
-  ![xxx](images/xxx.png)
+  ![xxx](images/envemail.png)
+
+  ![xxx](images/tfvars.png)
 
 ## Task 2: Apply foundational infrastructure
 
@@ -44,6 +46,9 @@ Estimated Lab Time: XX minutes
     ```bash
     <copy>cd tf-env</copy>
     ```
+  
+  ![xxx](images/tfenv.png)
+
 
 2. Run the `init` command for terraform.
     
