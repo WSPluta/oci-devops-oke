@@ -118,14 +118,16 @@ async function devopsTFvars() {
 
   const compartmentId = await searchCompartmentIdByName(compartment || "root");
 
-  const githubURL = await setVariableFromEnvOrPrompt(
+  const githubURLParam = await setVariableFromEnvOrPrompt(
     "GITHUB_URL",
     "GitHub URL"
   );
-  const githubUser = await setVariableFromEnvOrPrompt(
-    "GITHUB_USER",
-    "GitHub User"
-  );
+
+  const githubURL = githubURLParam.endsWith(".git")
+    ? githubURLParam.replace(".git", "")
+    : githubURLParam;
+
+  const githubUser = githubURL.split("/").reverse()[1];
 
   const githubURLEscaped = githubURL.replaceAll("/", "\\/");
   const replaceCmdURL = `s/GITHUB_REPOSITORY_URL/${githubURLEscaped}/`;
