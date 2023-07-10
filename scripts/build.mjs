@@ -16,10 +16,10 @@ $.verbose = false;
 checkPodmanMachineRunning();
 
 const namespace = await getNamespace();
-const ociRegionNameFromEnv = await $`echo $OCI_REGION`;
-console.log({ ociRegionNameFromEnv });
+const ociRegionNameFromEnv = (await $`echo $OCI_REGION`).stdout.trim();
 const region = await getRegionByName(ociRegionNameFromEnv);
-const regionKey = region["region-key"];
+const regionKey = region["region-key"].toLowerCase();
+console.log(regionKey);
 
 const { a, _ } = argv;
 const [action, push] = _;
