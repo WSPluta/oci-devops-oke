@@ -16,7 +16,7 @@ $.verbose = false;
 checkPodmanMachineRunning();
 
 const namespace = await getNamespace();
-const ociRegionNameFromEnv = await `echo $OCI_REGION`;
+const ociRegionNameFromEnv = await $`echo $OCI_REGION`;
 console.log({ ociRegionNameFromEnv });
 const region = await getRegionByName(ociRegionNameFromEnv);
 const regionKey = region["region-key"];
