@@ -1,7 +1,6 @@
 #!/usr/bin/env zx
-import { readEnvJson } from "./lib/utils.mjs";
 import { getNpmVersion } from "./lib/npm.mjs";
-import { getNamespace } from "./lib/oci.mjs";
+import { getNamespace, getRegionByName } from "./lib/oci.mjs";
 import {
   checkPodmanMachineRunning,
   buildImage,
@@ -16,12 +15,11 @@ $.verbose = false;
 
 checkPodmanMachineRunning();
 
-let properties = await readEnvJson();
-const { containerRegistryURL } = properties;
-
 const namespace = await getNamespace();
-
-console.log({ containerRegistryURL, namespace });
+const ociRegionNameFromEnv = await `echo $OCI_REGION`;
+console.log({ ociRegionNameFromEnv });
+const region = await getRegionByName(ociRegionNameFromEnv);
+const regionKey = region["region-key"];
 
 const { a, _ } = argv;
 const [action, push] = _;
@@ -62,7 +60,7 @@ async function releaseNpm(service, push) {
   const currentVersion = await getNpmVersion();
   await buildImage(`${service}`, currentVersion);
   const localImage = `${service}:${currentVersion}`;
-  const remoteImage = `${containerRegistryURL}/${namespace}/${project}/${service}:${currentVersion}`;
+  const remoteImage = `${regionKey}.ocir.io/${namespace}/${project}/${service}:${currentVersion}`;
   await tagImage(localImage, remoteImage);
   if (push) {
     await pushImage(remoteImage);
@@ -76,7 +74,7 @@ async function releaseGradle(service, push) {
   const currentVersion = await getVersionGradle();
   await buildImage(`${service}`, currentVersion);
   const localImage = `${service}:${currentVersion}`;
-  const remoteImage = `${containerRegistryURL}/${namespace}/${project}/${service}:${currentVersion}`;
+  const remoteImage = `${regionKey}.ocir.io/${namespace}/${project}/${service}:${currentVersion}`;
   await tagImage(localImage, remoteImage);
   if (push) {
     await pushImage(remoteImage);
