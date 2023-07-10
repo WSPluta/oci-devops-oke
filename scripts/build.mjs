@@ -1,6 +1,7 @@
 #!/usr/bin/env zx
 import { readEnvJson } from "./lib/utils.mjs";
 import { getNpmVersion } from "./lib/npm.mjs";
+import { getNamespace } from "./lib/oci.mjs";
 import {
   checkPodmanMachineRunning,
   buildImage,
@@ -16,7 +17,11 @@ $.verbose = false;
 checkPodmanMachineRunning();
 
 let properties = await readEnvJson();
-const { containerRegistryURL, namespace } = properties;
+const { containerRegistryURL } = properties;
+
+const namespace = await getNamespace();
+
+console.log({ containerRegistryURL, namespace });
 
 const { a, _ } = argv;
 const [action, push] = _;
