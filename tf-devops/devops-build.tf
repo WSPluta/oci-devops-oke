@@ -2,25 +2,18 @@ resource "oci_devops_build_pipeline" "build_pipeline" {
   project_id = oci_devops_project.devops_project.id
 
   build_pipeline_parameters {
-    # Not used, remove
     items {
       name          = "OCI_REGION"
       default_value = var.region
       description   = "OCI Region name"
     }
-    # Not used, remove
     items {
       name          = "OCI_TENANCY"
       default_value = var.tenancy_ocid
       description   = "OCI Tenanci OCID"
     }
-    # Not used, remove
-    items {
-      name          = "OCI_OCIR_USER"
-      default_value = var.ocir_user
-      description   = "OCI OCIR USER"
-    }
   }
+
   description  = "Servers' Build Pipeline for ${random_string.deploy_id.result}"
   display_name = "Build Pipeline for ${random_string.deploy_id.result}"
 
