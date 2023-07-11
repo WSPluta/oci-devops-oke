@@ -1,5 +1,41 @@
 locals {
   dynamic_group_name = "devops_dynamic_group_${random_string.deploy_id.result}"
+  group_name         = "devops_group_${random_string.deploy_id.result}"
+}
+
+resource "oci_identity_group" "oke_ocir_group" {
+  provider       = oci.home_region
+  compartment_id = var.tenancy_ocid
+  description    = "Group for ${local.group_name}"
+  name           = local.group_name
+}
+
+resource "oci_identity_user" "oke_ocir_user" {
+  compartment_id = var.tenancy_ocid
+  description    = "User for OKE secret to access OCIR"
+  name           = "oke_ocir_user"
+
+  email = "oke_ocir_user@example.com"
+}
+
+resource "oci_identity_auth_token" "oke_ocir_user_auth_token" {
+  description = "User Auth Token for OKE secret to access OCIR"
+  user_id     = oci_identity_user.oke_ocir_user.id
+}
+
+resource "oci_identity_policy" "oke_ocir_user_policy_in_tenancy" {
+  provider       = oci.home_region
+  compartment_id = var.tenancy_ocid
+  name           = "oke_ocir_user_policies_tenancy_${random_string.deploy_id.result}"
+  description    = "Allow group oke_ocir to pull container images at tenancy level for ${random_string.deploy_id.result}"
+  statements = [
+    "Allow group ${oci_identity_group.oke_ocir_group.name} to read repos in tenancy"
+  ]
+}
+
+resource "oci_identity_user_group_membership" "oke_ocir_user_group_membership" {
+  group_id = oci_identity_group.oke_ocir_group.id
+  user_id  = oci_identity_user.oke_ocir_user.id
 }
 
 resource "oci_identity_dynamic_group" "devops_dynamic_group" {

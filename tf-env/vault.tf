@@ -48,7 +48,7 @@ resource "oci_vault_secret" "user_auth_token" {
   compartment_id = var.compartment_ocid
   secret_content {
     name         = "user_auth_token_${random_string.deploy_id.result}"
-    content      = base64encode(oci_identity_auth_token.user_auth_token.token)
+    content      = base64encode(oci_identity_auth_token.oke_ocir_user_auth_token.token)
     content_type = "BASE64"
     stage        = "CURRENT"
   }
@@ -58,5 +58,5 @@ resource "oci_vault_secret" "user_auth_token" {
   secret_name = "user_auth_token_${random_string.deploy_id.result}"
   description = "User Auth Token for ${random_string.deploy_id.result}"
 
-  depends_on = [oci_identity_auth_token.user_auth_token]
+  depends_on = [oci_identity_auth_token.oke_ocir_user_auth_token]
 }
