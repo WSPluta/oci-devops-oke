@@ -16,10 +16,12 @@ $.verbose = false;
 checkPodmanMachineRunning();
 
 const namespace = await getNamespace();
+console.log({ namespace });
 const ociRegionNameFromEnv = (await $`echo $OCI_REGION`).stdout.trim();
+console.log({ ociRegionNameFromEnv });
 const region = await getRegionByName(ociRegionNameFromEnv);
 const regionKey = region["region-key"].toLowerCase();
-console.log(regionKey);
+console.log({ regionKey });
 
 const { a, _ } = argv;
 const [action, push] = _;
@@ -58,6 +60,9 @@ console.log("\tnpx zx scripts/build.mjs japp-server");
 async function releaseNpm(service, push) {
   await cd(`src/${service}`);
   const currentVersion = await getNpmVersion();
+  console.log(
+    `Releasing ${service}:${currentVersion} (push: ${push.toString()})`
+  );
   await buildImage(`${service}`, currentVersion);
   const localImage = `${service}:${currentVersion}`;
   const remoteImage = `${regionKey}.ocir.io/${namespace}/${project}/${service}:${currentVersion}`;
