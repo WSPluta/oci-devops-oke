@@ -11,72 +11,95 @@ Estimated Lab Time: XX minutes
 * An Oracle Free Tier, Paid or LiveLabs Cloud Account
 * Active Oracle Cloud Account with available credits to use for Data Science service.
 
-## Task 1: XXX
+## Task 1: Get familiar with OCI DevOps
 
-1. From the Oracle Cloud Console, click on **Cloud Shell**.
-  ![Cloud Shell Button](images/cloud-shell-button.png)
+1. Go to **Menu** > **Developer Services** > **DevOps**.
+  
+  ![xxx](images/xxx.png)
 
-2. As soon as the Cloud Shell is loaded, you can download the assets to run this lab.
+2. Click on **Projects**
 
     ```bash
     <copy>git clone --branch dev https://github.com/oracle-devrel/redbull-pit-strategy.git</copy>
     ```
 
-3. The result will look like this:
-  ![Git Clone](images/git-clone.png)
+  > NOTE: Make sure you select the compartment, or that the root compartment is selected.
+  >  
+  > ![xxx](images/xxx.png)
+  >  
 
-4. Change directory with `cd` to `redbull-pit-strategy` directory:
+3. You will see our OCI DevOps Project, click on it.
 
-    ```bash
-    <copy>cd redbull-pit-strategy</copy>
-    ```
+  ![xxx](images/xxx.png)
 
-## Task 2: XXX
+4. You will find code repositories, that contain the mirrored GitHub Repository.
 
-1. You are going to create a file `.env.json` that contains variables for terraform. Including the number of desired CPUs for Data Science. Run on Cloud Shell the following command:
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>
-    npx zx scripts/setenv.mjs
-    </copy>
-    ```
+  > NOTE: OCI DevOps can host your code without the need of GitHub or any other git service. This is the preferred way, for security and integration, it is the easiest way. In this workshop, we take the approach of GitHub so you can see a more complex scenario with a minutely synchronized mirroring between OCI DevOps Code Repository and Github.
 
-2. It will run a dependency check and right after ask for a compartment name. If you are in a trial, or brand new to Oracle Cloud, just leave it empty and type _ENTER_.
-    > NOTE: If you want to deploy on a specific compartment, type the name (not the OCI ID) and the compartment will be used.
+5. Click on the mirrored repository to take a look at the code.
 
-3. Then, the script will ask for the `Data Science CPU number`. Type the number 1, but feel free to indicate up to 4 CPUs.
+  ![xxx](images/xxx.png)
 
-4. The script will finished.
-    ![Cloud Shell setenv](./images/cloud-shell-setenv.png)
+  > NOTE: Take into account that the initial code mirroring takes a few minutes. The system will tell you if the process is on-going.
 
-5. Terraform uses a file called `terraform.tfvars` that contains the variables Terraform uses to talk to Oracle Cloud and set up your deployment the way you want it. You are going to use a script that will ask you for information to create the `terraform.tfvars` file for you. Run on Cloud Shell the following command:
+## Task 2: Run Build Pipeline
 
-    ```bash
-    <copy>
-    npx zx scripts/tfvars.mjs
-    </copy>
-    ```
+1. Scroll to the bottom to see the same code you have on GitHub.
 
-6. The script will create the `terraform.tfvars` file.
-    ![Cloud Shell tfvars](./images/cloud-shell-tfvars.png)
+  ![xxx](images/xxx.png)
 
-## Task 3: XXX
+2. Go back to the DevOps Project. You can use the breadcrumbs menu like in the picture or use the back bottom on your browser.
 
-1. Change directory to `dev`
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>cd dev</copy>
-    ```
+3. Scroll down until you see the **Latest Build pipelines**. Click on the Build Pipeline you created with terraform.
 
+  ![xxx](images/xxx.png)
 
-2. Run the `start.sh` script
+4. Take a look, there are two stages: **Build Services** and **Deliver Artifacts**. The first stage will build the Node and Java Applications. The second stage will deploy the container images with the applications on Oracle Cloud Container Registry.
 
-    ```bash
-    <copy>./start.sh</copy>
-    ```
+  ![xxx](images/xxx.png)
 
-3. The script will run and it looks like this.
-    ![Start SH beginning](images/start-sh-beginning.png)
+5. Click **Start manual run**.
+
+  ![xxx](images/xxx.png)
+
+6. This Build Pipeline has some Parameters, keep them in mind to customize your build pipeline in the future.
+
+  ![xxx](images/xxx.png)
+
+7. Click **Start manual run** to kick off the pipeline.
+
+  ![xxx](images/xxx.png)
+
+8. Wait until the build pipeline finished. It might take up to 7 minutes.
+
+  ![xxx](images/xxx.png)
+
+9. Finally, confirm the success and explore the console log. You can minimize some of the other panels.
+
+  ![xxx](images/xxx.png)
+
+10. When done, come back to the OCI DevOps Project.
+
+  ![xxx](images/xxx.png)
+
+## Task 3: Check the delivery of the container images
+
+1. Go to **Menu** > **Developer Services** > **Container Images**
+
+  ![xxx](images/xxx.png)
+
+2. Change to the root compartment to list the images.
+
+  ![xxx](images/xxx.png)
+
+3. Take a look to the versions
+
+  ![xxx](images/xxx.png)
+
 
 You may now [proceed to the next lab](#next).
 

@@ -59,13 +59,21 @@ Estimated Lab Time: 15 minutes
   
   ![xxx](images/xxx-xxx-xxx.png)
 
-2. Clone the forked repository by running the following command.
+2. Clone the forked repository. Click Code and select HTTPS.
     
+  ![xxx](images/xxx-xxx-xxx.png)
+
+1. Click the copy button and paste it on Cloud Shell to git cloning.
+
+  ![xxx](images/xxx-xxx-xxx.png)
+
     ```bash
-    <copy>git clone https://github.com/vmleon/oci-devops-oke.git</copy>
+    <copy>git clone https://github.com/YOUR_USER_HANDLER/oci-devops-oke.git</copy>
     ```
 
-3. Change the directory to the cloned repository:
+  ![xxx](images/xxx-xxx-xxx.png)
+
+1. Change the directory to the cloned repository:
     
     ```bash
     <copy>cd oci-devops-oke</copy>

@@ -11,72 +11,57 @@ Estimated Lab Time: XX minutes
 * An Oracle Free Tier, Paid or LiveLabs Cloud Account
 * Active Oracle Cloud Account with available credits to use for Data Science service.
 
-## Task 1: XXX
+## Task 1: Get familiar with OCI DevOps
 
-1. From the Oracle Cloud Console, click on **Cloud Shell**.
-  ![Cloud Shell Button](images/cloud-shell-button.png)
+1. Go back to the OCI DevOps Project.
+  
+  ![xxx](images/xxx.png)
 
-2. As soon as the Cloud Shell is loaded, you can download the assets to run this lab.
+2. Scroll down until you will find the **Latest environments**, that contain the Kubernetes Cluster where OCI DevOps is going to deploy the application.
 
-    ```bash
-    <copy>git clone --branch dev https://github.com/oracle-devrel/redbull-pit-strategy.git</copy>
-    ```
+  ![xxx](images/xxx.png)
 
-3. The result will look like this:
-  ![Git Clone](images/git-clone.png)
+3. Click on the environment and take a look at the reference.
 
-4. Change directory with `cd` to `redbull-pit-strategy` directory:
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>cd redbull-pit-strategy</copy>
-    ```
+## Task 2: Run Deploy Pipeline
 
-## Task 2: XXX
+2. Go back to the DevOps Project. You can use the breadcrumbs menu like in the picture or use the back bottom on your browser.
 
-1. You are going to create a file `.env.json` that contains variables for terraform. Including the number of desired CPUs for Data Science. Run on Cloud Shell the following command:
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>
-    npx zx scripts/setenv.mjs
-    </copy>
-    ```
+3. Scroll down until you see the **Latest deployment pipelines**. Click on the Deployment Pipeline you created with Terraform.
 
-2. It will run a dependency check and right after ask for a compartment name. If you are in a trial, or brand new to Oracle Cloud, just leave it empty and type _ENTER_.
-    > NOTE: If you want to deploy on a specific compartment, type the name (not the OCI ID) and the compartment will be used.
+  ![xxx](images/xxx.png)
 
-3. Then, the script will ask for the `Data Science CPU number`. Type the number 1, but feel free to indicate up to 4 CPUs.
+4. Take a look, there are one stage: **Deploy with Kustomize**. This stage will deploy with Kustomize to the Kubernetes Cluster.
 
-4. The script will finished.
-    ![Cloud Shell setenv](./images/cloud-shell-setenv.png)
+  ![xxx](images/xxx.png)
 
-5. Terraform uses a file called `terraform.tfvars` that contains the variables Terraform uses to talk to Oracle Cloud and set up your deployment the way you want it. You are going to use a script that will ask you for information to create the `terraform.tfvars` file for you. Run on Cloud Shell the following command:
+5. Click **Run pipeline**.
 
-    ```bash
-    <copy>
-    npx zx scripts/tfvars.mjs
-    </copy>
-    ```
+  ![xxx](images/xxx.png)
 
-6. The script will create the `terraform.tfvars` file.
-    ![Cloud Shell tfvars](./images/cloud-shell-tfvars.png)
+6. This Pipeline has no Parameters, but keep them in mind to customize your deployment pipeline in the future.
 
-## Task 3: XXX
+  ![xxx](images/xxx.png)
 
-1. Change directory to `dev`
+7. Click **Start manual run** to kick off the pipeline.
 
-    ```bash
-    <copy>cd dev</copy>
-    ```
+  ![xxx](images/xxx.png)
 
+8. Wait until the deploy pipeline finished. It might take up to 7 minutes.
 
-2. Run the `start.sh` script
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>./start.sh</copy>
-    ```
+9. Finally, confirm the success and explore the console log. You can minimize some of the other panels.
 
-3. The script will run and it looks like this.
-    ![Start SH beginning](images/start-sh-beginning.png)
+  ![xxx](images/xxx.png)
+
+10. At the end of the logs you will see a curl command. Copy and paste it on the terminal.
+
+  ![xxx](images/xxx.png)
 
 You may now [proceed to the next lab](#next).
 

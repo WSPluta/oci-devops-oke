@@ -21,17 +21,14 @@ Estimated Lab Time: XX minutes
 
     > This `tfvars.mjs` will create a file called `terraform.tfvars` with the values needed by Terraform to create all the DevOps infrastructure.
 
-2. During the execution of the script, you will have to answer a few questions.
+2. During the execution of the script, you will have to answer a question.
   
   ![xxx](images/xxx.png)
 
-3. The first one is the _GitHub URL_. You just type/paste the URL of your forked GitHub repository.
+3. The _GitHub URL_. You just type/paste the URL of your forked GitHub repository.
   
   ![xxx](images/xxx.png)
 
-4. The second one is the _GitHub User_. You just paste the GitHub user handler.
-  
-  ![xxx](images/xxx.png)
 
 ## Task 2: Apply DevOps infrastructure
 
