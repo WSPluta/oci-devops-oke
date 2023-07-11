@@ -19,6 +19,10 @@ const ce = await whichContainerEngine();
 properties = { ...properties, ce };
 await writeEnvJson(properties);
 
+const projectName = "oci-devops-oke";
+properties = { ...properties, projectName };
+await writeEnvJson(properties);
+
 const dependencies = [ce, "node"];
 await checkRequiredProgramsExist(dependencies);
 
