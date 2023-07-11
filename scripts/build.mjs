@@ -18,7 +18,6 @@ checkPodmanMachineRunning();
 const namespace = await getNamespace();
 console.log({ namespace });
 const ociRegionNameFromEnv = (await $`echo $OCI_REGION`).stdout.trim();
-console.log({ ociRegionNameFromEnv });
 const region = await getRegionByName(ociRegionNameFromEnv);
 const regionKey = region["region-key"].toLowerCase();
 console.log({ regionKey });
@@ -57,7 +56,7 @@ console.log("\tnpx zx scripts/build.mjs hello-server");
 console.log("\tnpx zx scripts/build.mjs auth-server");
 console.log("\tnpx zx scripts/build.mjs japp-server");
 
-async function releaseNpm(service, push) {
+async function releaseNpm(service, push = false) {
   await cd(`src/${service}`);
   const currentVersion = await getNpmVersion();
   console.log(
