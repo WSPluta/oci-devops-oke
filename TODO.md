@@ -1,12 +1,9 @@
 # TODO list
 
 - Versioning, region, namespace on kustomize files
-- Java component
 - Trigger
-- Timeouts too big for deployment
 - Load Balancer delete (Kubectl delete -k ...)
-- GitHub public repo, no need for fine-grain token?
-
+ 
 ---
 
 ## Errors to investigate
