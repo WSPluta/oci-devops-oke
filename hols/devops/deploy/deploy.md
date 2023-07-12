@@ -35,7 +35,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-4. Take a look, there are one stage: **Deploy with Kustomize**. This stage will deploy with Kustomize to the Kubernetes Cluster.
+4. Take a look, there is one stage: **Deploy with Kustomize**. This stage will deploy with Kustomize to the Kubernetes Cluster.
 
   ![xxx](images/xxx.png)
 
@@ -51,7 +51,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-8. Wait until the deploy pipeline finished. It might take up to 7 minutes.
+8. Wait until the deployment pipeline is finished. It might take up to 7 minutes.
 
   ![xxx](images/xxx.png)
 
@@ -59,7 +59,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-10. At the end of the logs you will see a curl command. Copy and paste it on the terminal.
+10. At the end of the logs, you will see a curl command. Copy and paste it on the terminal.
 
   ![xxx](images/xxx.png)
 

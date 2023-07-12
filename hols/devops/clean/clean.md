@@ -1,4 +1,4 @@
-# Lab 6: New Feature and Rollback
+# Lab 7: Clean Up (Optional)
 
 ## Introduction
 

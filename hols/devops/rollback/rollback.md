@@ -1,4 +1,4 @@
-# Lab 7: Clean Up (Optional)
+# Lab 6: New Feature and Rollback
 
 ## Introduction
 
@@ -11,72 +11,217 @@ Estimated Lab Time: XX minutes
 * An Oracle Free Tier, Paid or LiveLabs Cloud Account
 * Active Oracle Cloud Account with available credits to use for Data Science service.
 
-## Task 1: XXX
+## Task 1: Bump the version of a component
 
-1. From the Oracle Cloud Console, click on **Cloud Shell**.
-  ![Cloud Shell Button](images/cloud-shell-button.png)
+1. XXX
 
-2. As soon as the Cloud Shell is loaded, you can download the assets to run this lab.
+  ![xxx](./images/xxx.png)
 
-    ```bash
-    <copy>git clone --branch dev https://github.com/oracle-devrel/redbull-pit-strategy.git</copy>
-    ```
+2. XXX
 
-3. The result will look like this:
-  ![Git Clone](images/git-clone.png)
+  ![xxx](./images/xxx.png)
 
-4. Change directory with `cd` to `redbull-pit-strategy` directory:
+3. XXX
 
-    ```bash
-    <copy>cd redbull-pit-strategy</copy>
-    ```
+  ![xxx](./images/xxx.png)
 
-## Task 2: XXX
+4. XXX
 
-1. You are going to create a file `.env.json` that contains variables for terraform. Including the number of desired CPUs for Data Science. Run on Cloud Shell the following command:
+  ![xxx](./images/xxx.png)
 
-    ```bash
-    <copy>
-    npx zx scripts/setenv.mjs
-    </copy>
-    ```
+5. XXX
 
-2. It will run a dependency check and right after ask for a compartment name. If you are in a trial, or brand new to Oracle Cloud, just leave it empty and type _ENTER_.
-    > NOTE: If you want to deploy on a specific compartment, type the name (not the OCI ID) and the compartment will be used.
+  ![xxx](./images/xxx.png)
 
-3. Then, the script will ask for the `Data Science CPU number`. Type the number 1, but feel free to indicate up to 4 CPUs.
+6. XXX
 
-4. The script will finished.
-    ![Cloud Shell setenv](./images/cloud-shell-setenv.png)
+  ![xxx](./images/xxx.png)
 
-5. Terraform uses a file called `terraform.tfvars` that contains the variables Terraform uses to talk to Oracle Cloud and set up your deployment the way you want it. You are going to use a script that will ask you for information to create the `terraform.tfvars` file for you. Run on Cloud Shell the following command:
+7. XXX
 
-    ```bash
-    <copy>
-    npx zx scripts/tfvars.mjs
-    </copy>
-    ```
+  ![xxx](./images/xxx.png)
 
-6. The script will create the `terraform.tfvars` file.
-    ![Cloud Shell tfvars](./images/cloud-shell-tfvars.png)
+8. XXX
 
-## Task 3: XXX
+  ![xxx](./images/xxx.png)
 
-1. Change directory to `dev`
+9. XXX
 
-    ```bash
-    <copy>cd dev</copy>
-    ```
+  ![xxx](./images/xxx.png)
+
+10. XXX
+
+  ![xxx](./images/xxx.png)
+
+11. XXX
+
+  ![xxx](./images/xxx.png)
+
+12. XXX
+
+  ![xxx](./images/xxx.png)
+
+13. XXX
+
+  ![xxx](./images/xxx.png)
+
+14. XXX
+
+  ![xxx](./images/xxx.png)
+
+15. XXX
+
+  ![xxx](./images/xxx.png)
+
+16. XXX
+
+  ![xxx](./images/xxx.png)
+
+17. XXX
+
+  ![xxx](./images/xxx.png)
+
+## Task 2: Build and Deploy
+
+1. XXX
+
+  ![xxx](./images/xxx.png)
+
+2. XXX
+
+  ![xxx](./images/xxx.png)
+
+3. XXX
+
+  ![xxx](./images/xxx.png)
+
+4. XXX
+
+  ![xxx](./images/xxx.png)
+
+5. XXX
+
+  ![xxx](./images/xxx.png)
+
+6. XXX
+
+  ![xxx](./images/xxx.png)
+
+7. XXX
+
+  ![xxx](./images/xxx.png)
+
+8. XXX
+
+  ![xxx](./images/xxx.png)
+
+9. XXX
+
+  ![xxx](./images/xxx.png)
+
+10. XXX
+
+  ![xxx](./images/xxx.png)
+
+11. XXX
+
+  ![xxx](./images/xxx.png)
+
+12. XXX
+
+  ![xxx](./images/xxx.png)
+
+13. XXX
+
+  ![xxx](./images/xxx.png)
+
+14. XXX
+
+  ![xxx](./images/xxx.png)
+
+15. XXX
+
+  ![xxx](./images/xxx.png)
+
+16. XXX
+
+  ![xxx](./images/xxx.png)
+
+17. XXX
+
+  ![xxx](./images/xxx.png)
 
 
-2. Run the `start.sh` script
+## Task 3: Rollback
 
-    ```bash
-    <copy>./start.sh</copy>
-    ```
+1. XXX
 
-3. The script will run and it looks like this.
-    ![Start SH beginning](images/start-sh-beginning.png)
+  ![xxx](./images/xxx.png)
+
+2. XXX
+
+  ![xxx](./images/xxx.png)
+
+3. XXX
+
+  ![xxx](./images/xxx.png)
+
+4. XXX
+
+  ![xxx](./images/xxx.png)
+
+5. XXX
+
+  ![xxx](./images/xxx.png)
+
+6. XXX
+
+  ![xxx](./images/xxx.png)
+
+7. XXX
+
+  ![xxx](./images/xxx.png)
+
+8. XXX
+
+  ![xxx](./images/xxx.png)
+
+9. XXX
+
+  ![xxx](./images/xxx.png)
+
+10. XXX
+
+  ![xxx](./images/xxx.png)
+
+11. XXX
+
+  ![xxx](./images/xxx.png)
+
+12. XXX
+
+  ![xxx](./images/xxx.png)
+
+13. XXX
+
+  ![xxx](./images/xxx.png)
+
+14. XXX
+
+  ![xxx](./images/xxx.png)
+
+15. XXX
+
+  ![xxx](./images/xxx.png)
+
+16. XXX
+
+  ![xxx](./images/xxx.png)
+
+17. XXX
+
+  ![xxx](./images/xxx.png)
+
 
 You may now [proceed to the next lab](#next).
 
