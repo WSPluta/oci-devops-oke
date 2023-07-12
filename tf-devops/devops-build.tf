@@ -78,7 +78,7 @@ resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
       artifact_name = "japp_server"
     }
   }
-  display_name = "Deliver Artifacts Stage"
+  display_name = "Deliver Artifacts"
 }
 
 locals {
