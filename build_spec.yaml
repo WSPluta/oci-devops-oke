@@ -20,8 +20,11 @@ steps:
     name: "Set up server versions"
     command: |
       export HELLO_VERSION=$(cat src/hello-server/package.json | jq .version | tr -d '/"')
+      echo "HELLO_VERSION: $HELLO_VERSION"
       export AUTH_VERSION=$(cat src/auth-server/package.json | jq .version | tr -d '/"')
+      echo "AUTH_VERSION: $AUTH_VERSION"
       export JAPP_VERSION=$(grep "version = " src/japp-server/build.gradle | cut -d "'" -f2)
+      echo "JAPP_VERSION: $JAPP_VERSION"
   - type: Command
     name: "Build hello-server"
     command: |
