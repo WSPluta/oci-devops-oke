@@ -26,6 +26,10 @@ async function createKustomizationYaml(regionKey, namespace) {
   const jappVersion = await getVersionGradle();
   await cd(pwdOutput);
 
+  console.log(`hello-server v${helloVersion}`);
+  console.log(`auth-server v${authVersion}`);
+  console.log(`japp-server v${jappVersion}`);
+
   await cd("./k8s/overlay/prod");
   try {
     let { exitCode, stderr } =
