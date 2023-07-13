@@ -87,5 +87,5 @@ async function releaseGradle(service, push) {
     await pushImage(remoteImage);
     console.log(`Released: ${chalk.yellow(remoteImage)}`);
   }
-  await cd("..");
+  await cd("../..");
 }

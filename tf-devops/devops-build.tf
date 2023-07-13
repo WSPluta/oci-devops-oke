@@ -10,7 +10,7 @@ resource "oci_devops_build_pipeline" "build_pipeline" {
     items {
       name          = "OCI_TENANCY"
       default_value = var.tenancy_ocid
-      description   = "OCI Tenanci OCID"
+      description   = "OCI Tenancy OCID"
     }
   }
 
@@ -78,7 +78,7 @@ resource "oci_devops_build_pipeline_stage" "deliver_artifact_stage" {
       artifact_name = "japp_server"
     }
   }
-  display_name = "Deliver Artifacts Stage"
+  display_name = "Deliver Artifacts"
 }
 
 locals {
@@ -127,7 +127,7 @@ resource "oci_devops_deploy_artifact" "japp_server_image" {
   deploy_artifact_source {
     deploy_artifact_source_type = "OCIR"
 
-    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/japp-server:$${HELLO_VERSION}"
+    image_uri     = "${var.region_key}.ocir.io/${var.namespace}/${local.repo_name}/japp-server:$${JAPP_VERSION}"
     repository_id = oci_devops_repository.github_mirrored_repository.id
   }
 
