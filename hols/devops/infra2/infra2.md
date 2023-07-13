@@ -71,7 +71,7 @@ Estimated Lab Time: XX minutes
 
 9. DevOps Build Pipeline and its stages will build your source code, run your tests, and generate artifacts like files, and container images.
 
-10. DevOps Deployment Pipeline and its stages is where all the artifacts get deployed on an environment. In your case, a Kubernetes Cluster but it could be anything from virtual machines to container instances.
+10. DevOps Deployment Pipeline and its stages are where all the artifacts get deployed on an environment. In your case, a Kubernetes Cluster but it could be anything from virtual machines to container instances.
 
 11. Also, Terraform will create all the networking fabric needed to run the build and deployment pipelines.
 

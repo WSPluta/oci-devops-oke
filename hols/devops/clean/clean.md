@@ -33,11 +33,11 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-6. Copy the command from the step 2. And paste it on the Cloud Shell. Run the command.
+1. Copy the command from step 2. And paste it on the Cloud Shell. Run the command.
 
   ![xxx](images/xxx.png)
 
-7. Check it is configure. Run the following command and see the services.
+7. Check it is configured. Run the following command and see the services.
 
     ```bash
     <copy>kubectl get pods</copy>
@@ -59,7 +59,7 @@ Estimated Lab Time: XX minutes
 
 ## Task 2: Delete infrastructure
 
-1. From the Cloud Shell, make sure you are on `tf-devops` folder.
+1. From the Cloud Shell, make sure you are in `tf-devops` folder.
 
     ```bash
     <copy>pwd</copy>

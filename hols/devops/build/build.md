@@ -54,7 +54,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-3. Scroll down until you see the **Latest Build pipelines**. Click on the Build Pipeline you created with terraform.
+3. Scroll down until you see the **Latest Build pipelines**. Click on the Build Pipeline you created with Terraform.
 
   ![xxx](images/xxx.png)
 
@@ -74,7 +74,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-8. Wait until the build pipeline finished. It might take up to 7 minutes.
+8. Wait until the build pipeline is finished. It might take up to 7 minutes.
 
   ![xxx](images/xxx.png)
 
@@ -96,7 +96,7 @@ Estimated Lab Time: XX minutes
 
   ![xxx](images/xxx.png)
 
-3. Take a look to the versions
+3. Take a look at the versions
 
   ![xxx](images/xxx.png)
 
