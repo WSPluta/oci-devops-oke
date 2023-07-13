@@ -11,74 +11,97 @@ Estimated Lab Time: XX minutes
 * An Oracle Free Tier, Paid or LiveLabs Cloud Account
 * Active Oracle Cloud Account with available credits to use for Data Science service.
 
-## Task 1: XXX
+## Task 1: Delete Load Balancer from Kubernetes
 
-1. From the Oracle Cloud Console, click on **Cloud Shell**.
-  ![Cloud Shell Button](images/cloud-shell-button.png)
+1. Go to **Menu** > **Developer Services** > **Kubernetes Clusters (OKE)**
 
-2. As soon as the Cloud Shell is loaded, you can download the assets to run this lab.
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>git clone --branch dev https://github.com/oracle-devrel/redbull-pit-strategy.git</copy>
-    ```
+2. The Kubernetes Cluster will be on the list, the name starting with `DevOps`.
 
-3. The result will look like this:
-  ![Git Clone](images/git-clone.png)
+  ![xxx](images/xxx.png)
 
-4. Change directory with `cd` to `redbull-pit-strategy` directory:
+3. Click on the Kubernetes Cluster name.
 
-    ```bash
-    <copy>cd redbull-pit-strategy</copy>
-    ```
+  ![xxx](images/xxx.png)
 
-## Task 2: XXX
+4. At the top, click on **Access Cluster**.
 
-1. You are going to create a file `.env.json` that contains variables for terraform. Including the number of desired CPUs for Data Science. Run on Cloud Shell the following command:
+  ![xxx](images/xxx.png)
 
-    ```bash
-    <copy>
-    npx zx scripts/setenv.mjs
-    </copy>
-    ```
+5. If you have the Cloud Shell still open, jump to step 2. If not, click on **Launch Cloud Shell**.
 
-2. It will run a dependency check and right after ask for a compartment name. If you are in a trial, or brand new to Oracle Cloud, just leave it empty and type _ENTER_.
-    > NOTE: If you want to deploy on a specific compartment, type the name (not the OCI ID) and the compartment will be used.
+  ![xxx](images/xxx.png)
 
-3. Then, the script will ask for the `Data Science CPU number`. Type the number 1, but feel free to indicate up to 4 CPUs.
+6. Copy the command from the step 2. And paste it on the Cloud Shell. Run the command.
 
-4. The script will finished.
-    ![Cloud Shell setenv](./images/cloud-shell-setenv.png)
+  ![xxx](images/xxx.png)
 
-5. Terraform uses a file called `terraform.tfvars` that contains the variables Terraform uses to talk to Oracle Cloud and set up your deployment the way you want it. You are going to use a script that will ask you for information to create the `terraform.tfvars` file for you. Run on Cloud Shell the following command:
+7. Check it is configure. Run the following command and see the services.
 
     ```bash
-    <copy>
-    npx zx scripts/tfvars.mjs
-    </copy>
+    <copy>kubectl get pods</copy>
     ```
 
-6. The script will create the `terraform.tfvars` file.
-    ![Cloud Shell tfvars](./images/cloud-shell-tfvars.png)
+  ![xxx](images/xxx.png)
 
-## Task 3: XXX
-
-1. Change directory to `dev`
+8. After that, delete the ingress controller, hence the load balancer.
 
     ```bash
-    <copy>cd dev</copy>
+    <copy>kubectl delete ns ingress-nginx</copy>
     ```
 
+  ![xxx](images/xxx.png)
 
-2. Run the `start.sh` script
+9. It will take a couple of minutes.
+
+  ![xxx](images/xxx.png)
+
+## Task 2: Delete infrastructure
+
+1. From the Cloud Shell, make sure you are on `tf-devops` folder.
 
     ```bash
-    <copy>./start.sh</copy>
+    <copy>pwd</copy>
     ```
 
-3. The script will run and it looks like this.
-    ![Start SH beginning](images/start-sh-beginning.png)
+2. It should look like this:
 
-You may now [proceed to the next lab](#next).
+  ![xxx](./images/xxx.png)
+
+2. If you are not in `tf-devops` folder, change the current directory until you get there.
+
+  ![xxx](./images/xxx.png)
+
+1. Run the following command to destroy the OCI DevOps infrastructure.
+
+    ```bash
+    <copy>terraform destroy -auto-approve</copy>
+    ```
+
+  ![xxx](./images/xxx.png)
+
+4. When the Terraform `destroy` finishes successfully.
+
+  ![xxx](./images/xxx.png)
+
+5. Change the directory to the `tf-env`
+
+    ```bash
+    <copy>cd ../tf-env</copy>
+    ```
+
+6. Run the following command to destroy the rest of the infrastructure.
+
+    ```bash
+    <copy>terraform destroy -auto-approve</copy>
+    ```
+
+  ![xxx](./images/xxx.png)
+
+7. When the Terraform `destroy` finishes successfully, you have finished cleaning up.
+
+  ![xxx](./images/xxx.png)
 
 ## Acknowledgments
 
