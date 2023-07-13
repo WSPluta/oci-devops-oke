@@ -76,6 +76,9 @@ async function releaseNpm(service, push = false) {
 async function releaseGradle(service, push) {
   await cd(`src/${service}`);
   const currentVersion = await getVersionGradle();
+  console.log(
+    `Releasing ${service}:${currentVersion} (push: ${push.toString()})`
+  );
   await buildImage(`${service}`, currentVersion);
   const localImage = `${service}:${currentVersion}`;
   const remoteImage = `${regionKey}.ocir.io/${namespace}/${project}/${service}:${currentVersion}`;
