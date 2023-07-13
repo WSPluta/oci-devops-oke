@@ -69,7 +69,7 @@ app.get("/", async (req, res) => {
     id: serverId,
     name: jsonPackage.name,
     version: jsonPackage.version,
-    message: "hola",
+    message: "hello",
     auth: jsonAuth,
     japp: jsonJapp,
   });
